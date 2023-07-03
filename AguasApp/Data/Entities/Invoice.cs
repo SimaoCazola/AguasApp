@@ -4,6 +4,7 @@ namespace AguasApp.Data.Entities
 {
     public class Invoice
     {
+        public int Id { get; set; }
         public string InvoiceNumber { get; set; }
         public DateTime IssuanceDate { get; set; }
         public DateTime ExpirationDate { get; set; }
