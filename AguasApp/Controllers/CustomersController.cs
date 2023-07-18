@@ -54,7 +54,7 @@ namespace AguasApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nif,Name,Surname,PhoneNumber,Address,PostalCode,Email")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id,Nif,FirstName,LastName,PhoneNumber,Address,PostalCode,Email")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace AguasApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nif,Name,Surname,PhoneNumber,Address,PostalCode,Email")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nif,FirstName,LastName,PhoneNumber,Address,PostalCode,Email")] Customer customer)
         {
             if (id != customer.Id)
             {

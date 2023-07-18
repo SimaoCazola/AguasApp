@@ -10,22 +10,22 @@ using AguasApp.Data.Entities;
 
 namespace AguasApp.Controllers
 {
-    public class ConsumptionsController : Controller
+    public class ContractsController : Controller
     {
         private readonly DataContext _context;
 
-        public ConsumptionsController(DataContext context)
+        public ContractsController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: Consumptions
+        // GET: Contracts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Consumptions.ToListAsync());
+            return View(await _context.Contracts.ToListAsync());
         }
 
-        // GET: Consumptions/Details/5
+        // GET: Contracts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace AguasApp.Controllers
                 return NotFound();
             }
 
-            var consumption = await _context.Consumptions
+            var contract = await _context.Contracts
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (consumption == null)
+            if (contract == null)
             {
                 return NotFound();
             }
 
-            return View(consumption);
+            return View(contract);
         }
 
-        // GET: Consumptions/Create
+        // GET: Contracts/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Consumptions/Create
+        // POST: Contracts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Price,Volume,Escalation,ConsumptionDate,Descriptions")] Consumption consumption)
+        public async Task<IActionResult> Create([Bind("Id,ContractNumber,StartDate,EndDate,MonthlyValue,IsActive")] Contract contract)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(consumption);
+                _context.Add(contract);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(consumption);
+            return View(contract);
         }
 
-        // GET: Consumptions/Edit/5
+        // GET: Contracts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace AguasApp.Controllers
                 return NotFound();
             }
 
-            var consumption = await _context.Consumptions.FindAsync(id);
-            if (consumption == null)
+            var contract = await _context.Contracts.FindAsync(id);
+            if (contract == null)
             {
                 return NotFound();
             }
-            return View(consumption);
+            return View(contract);
         }
 
-        // POST: Consumptions/Edit/5
+        // POST: Contracts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Price,Volume,Escalation,ConsumptionDate,Descriptions")] Consumption consumption)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ContractNumber,StartDate,EndDate,MonthlyValue,IsActive")] Contract contract)
         {
-            if (id != consumption.Id)
+            if (id != contract.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace AguasApp.Controllers
             {
                 try
                 {
-                    _context.Update(consumption);
+                    _context.Update(contract);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ConsumptionExists(consumption.Id))
+                    if (!ContractExists(contract.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace AguasApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(consumption);
+            return View(contract);
         }
 
-        // GET: Consumptions/Delete/5
+        // GET: Contracts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace AguasApp.Controllers
                 return NotFound();
             }
 
-            var consumption = await _context.Consumptions
+            var contract = await _context.Contracts
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (consumption == null)
+            if (contract == null)
             {
                 return NotFound();
             }
 
-            return View(consumption);
+            return View(contract);
         }
 
-        // POST: Consumptions/Delete/5
+        // POST: Contracts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var consumption = await _context.Consumptions.FindAsync(id);
-            _context.Consumptions.Remove(consumption);
+            var contract = await _context.Contracts.FindAsync(id);
+            _context.Contracts.Remove(contract);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ConsumptionExists(int id)
+        private bool ContractExists(int id)
         {
-            return _context.Consumptions.Any(e => e.Id == id);
+            return _context.Contracts.Any(e => e.Id == id);
         }
     }
 }

@@ -4,14 +4,16 @@ using AguasApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AguasApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230716050310_UpdateClass")]
+    partial class UpdateClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,6 +28,9 @@ namespace AguasApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
                     b.Property<DateTime>("ConsumptionDate")
                         .HasColumnType("datetime2");
 
@@ -35,13 +40,15 @@ namespace AguasApp.Migrations
                     b.Property<string>("Escalation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<double>("Volume")
+                    b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<int?>("VolumeId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("VolumeId");
 
                     b.ToTable("Consumptions");
                 });
@@ -90,7 +97,6 @@ namespace AguasApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -111,7 +117,6 @@ namespace AguasApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("PostalCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -129,19 +134,13 @@ namespace AguasApp.Migrations
                     b.Property<int?>("AssociatedCustomerId")
                         .HasColumnType("int");
 
+                    b.Property<string>("CallStatus")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DateTimeOpened")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Handler")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ProblemDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -165,7 +164,6 @@ namespace AguasApp.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Location")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("TechnicianId")
@@ -192,8 +190,8 @@ namespace AguasApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("AmountToPay")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("AmountToPay")
+                        .HasColumnType("real");
 
                     b.Property<int?>("AssociatedCustomerId")
                         .HasColumnType("int");
@@ -208,7 +206,6 @@ namespace AguasApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("PaymentStatus")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -251,32 +248,30 @@ namespace AguasApp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Author")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Filters")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Metadata")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NumberOfCustomersServed")
                         .HasColumnType("int");
 
                     b.Property<string>("ReportType")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Revenue")
                         .HasColumnType("float");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("TotalLitersConsumed")
@@ -294,20 +289,13 @@ namespace AguasApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Specialization")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -325,12 +313,8 @@ namespace AguasApp.Migrations
                     b.Property<double>("CurrentReading")
                         .HasColumnType("float");
 
-                    b.Property<int?>("CustomerLocationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("ImageId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsWorking")
                         .HasColumnType("bit");
@@ -338,15 +322,24 @@ namespace AguasApp.Migrations
                     b.Property<DateTime>("LastReadingDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerLocationId");
-
                     b.ToTable("WaterMeters");
+                });
+
+            modelBuilder.Entity("AguasApp.Data.Entities.Consumption", b =>
+                {
+                    b.HasOne("AguasApp.Data.Entities.WaterMeter", "Volume")
+                        .WithMany()
+                        .HasForeignKey("VolumeId");
+
+                    b.Navigation("Volume");
                 });
 
             modelBuilder.Entity("AguasApp.Data.Entities.Contract", b =>
@@ -410,15 +403,6 @@ namespace AguasApp.Migrations
                     b.Navigation("AssociatedCustomer");
 
                     b.Navigation("RegisteredConsumption");
-                });
-
-            modelBuilder.Entity("AguasApp.Data.Entities.WaterMeter", b =>
-                {
-                    b.HasOne("AguasApp.Data.Entities.Customer", "CustomerLocation")
-                        .WithMany()
-                        .HasForeignKey("CustomerLocationId");
-
-                    b.Navigation("CustomerLocation");
                 });
 #pragma warning restore 612, 618
         }
