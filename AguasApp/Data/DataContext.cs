@@ -1,10 +1,13 @@
 ﻿using AguasApp.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using AguasApp.Models;
 
 namespace AguasApp.Data
 {
     public class DataContext:DbContext
     {
+        public DbSet<Product> Products { get; set; } 
+
         public DbSet<Consumption> Consumptions { get; set; }
 
         public DbSet<Contract> Contracts { get; set; }
@@ -29,6 +32,8 @@ namespace AguasApp.Data
         {
             
         }
+
+        public DbSet<AguasApp.Models.ProductSitesViewModel> ProductSitesViewModel { get; set; }
 
     }
 }

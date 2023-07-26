@@ -4,14 +4,16 @@ using AguasApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AguasApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230726002813_ProductClass")]
+    partial class ProductClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -250,10 +252,6 @@ namespace AguasApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ImageId")
                         .HasColumnType("nvarchar(max)");
 
@@ -280,8 +278,6 @@ namespace AguasApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Product");
                 });
 
             modelBuilder.Entity("AguasApp.Data.Entities.Report", b =>
@@ -388,13 +384,6 @@ namespace AguasApp.Migrations
                     b.HasIndex("CustomerLocationId");
 
                     b.ToTable("WaterMeters");
-                });
-
-            modelBuilder.Entity("AguasApp.Models.ProductSitesViewModel", b =>
-                {
-                    b.HasBaseType("AguasApp.Data.Entities.Product");
-
-                    b.HasDiscriminator().HasValue("ProductSitesViewModel");
                 });
 
             modelBuilder.Entity("AguasApp.Data.Entities.Contract", b =>
