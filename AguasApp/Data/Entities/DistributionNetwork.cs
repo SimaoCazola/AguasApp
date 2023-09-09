@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace AguasApp.Data.Entities
 {
-    public class DistributionNetwork  //Class "RedeDistribuição" (DistributionNetwork):
+    public class DistributionNetwork : IEntity  //Class "RedeDistribuição" (DistributionNetwork):
     {
         public int Id { get; set; }
 

@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 using System;
+using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AguasApp.Data.Entities
 {
-    public class Product
+    public class Product : IEntity
     {
         public int Id { get; set; }
 
@@ -16,18 +18,15 @@ namespace AguasApp.Data.Entities
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal Price { get; set; }
 
+        public string Image { get; set; }
 
-        [Display(Name = "Image")]
-        public string ImageId { get; set; }
-
-
-        [Display(Name = "Last Purchase")]
-        public DateTime? LastPurchase { get; set; }
+        [NotMapped]
+        //[Required]
+        public IFormFile ImageFile { get; set; }
 
 
-        [Display(Name = "Last Sale")]
-        public DateTime? LastSale { get; set; }
-
+        [Display(Name = "Date")]
+        public DateTime? PurchaseDate { get; set; }
 
         [Display(Name = "Is Available")]
         public bool IsAvailable { get; set; }
@@ -37,6 +36,14 @@ namespace AguasApp.Data.Entities
         public double Stock { get; set; }
 
 
-        //public User User { get; set; }
+        public User User { get; set; }
+
+        // Água Potável:
+        //Agua com gas 
+        // Agua Tonica
+        //
+        //
+        //
+        //
     }
 }

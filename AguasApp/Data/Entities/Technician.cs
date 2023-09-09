@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace AguasApp.Data.Entities
 {
-    public class Technician //Class "Técnico" (Technician):
+    public class Technician : IEntity //Class "Técnico" (Technician):
     {
         public int Id { get; set; }
 

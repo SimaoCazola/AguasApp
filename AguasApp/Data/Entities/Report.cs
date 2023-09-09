@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace AguasApp.Data.Entities
 {
-    public class Report //Class "Relatório" (Report):
+    public class Report : IEntity //Class "Relatório" (Report):
     {
         public int Id { get; set; }
 

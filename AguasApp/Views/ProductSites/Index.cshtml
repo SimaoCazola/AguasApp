@@ -1,0 +1,113 @@
+﻿@model IEnumerable<AguasApp.Data.Entities.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Products Area</h1>
+<!--CSS-->
+<link href="~/asset/css/animate.css" rel="stylesheet" />
+<link href="~/asset/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/asset/css/default.css" rel="stylesheet" />
+<link href="~/asset/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/asset/css/lineicons.css" rel="stylesheet" />
+<link href="~/asset/css/magnific-popup.css" rel="stylesheet" />
+<link href="~/asset/css/slick.css" rel="stylesheet" />
+<link href="~/asset/css/style.css" rel="stylesheet" />
+<a href="~/asset/css/style.css.map"></a>
+
+<!--FONTES-->
+<a href="~/asset/fonts/fontawesome.otf"></a>
+<a href="~/asset/fonts/fontawesome-webfont.eot"></a>
+@* <img src="~/asset/fonts/fontawesome-webfont.svg" />*@
+<a href="~/asset/fonts/fontawesome-webfont.ttf"></a>
+<a href="~/asset/fonts/fontawesome-webfont.woff"></a>
+<a href="~/asset/fonts/fontawesome-webfont.woff2"></a>
+<a href="~/asset/fonts/lineicons.eot"></a>
+<img src="~/asset/fonts/lineicons.svg" />
+<a href="~/asset/fonts/lineicons.ttf"></a>
+<a href="~/asset/fonts/lineicons.woff"></a>
+<!--JS-->
+<script src="~/asset/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="~/asset/js/vendor/modernizr-3.7.1.min.js"></script>
+<script src="~/asset/js/ajax-contact.js"></script>
+<script src="~/asset/js/bootstrap.min.js"></script>
+<script src="~/asset/js/jquery.counterup.min.js"></script>
+<script src="~/asset/js/jquery.easing.min.js"></script>
+<script src="~/asset/js/jquery.magnific-popup.min.js"></script>
+<script src="~/asset/js/main.js"></script>
+<script src="~/asset/js/particles.min.js"></script>
+<script src="~/asset/js/popper.min.js"></script>
+<script src="~/asset/js/plugins.js"></script>
+<script src="~/asset/js/scrolling-nav.js"></script>
+<script src="~/asset/js/slick.min.js"></script>
+<script src="~/asset/js/waypoints.min.js"></script>
+<script src="~/asset/js/wow.min.js"></script>
+
+<main @*class="d-flex justify-content-center"*@>
+    <div>
+        <a href="#" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Check Our Services</a>
+
+        <a href="#" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Contact Us Now</a>
+    </div>
+    
+    <br />
+    <br />
+    <br />
+    <!-- Begin Book section -->
+    <section class="shop_section layout_padding">
+        <div class="container">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="box">
+                            <a asp-area="" asp-controller="ProductSites" asp-action="Details" asp-route-id="@item.Id">
+                                <div class="img-box">
+                                    <img src="@("~/images/"+item.Image)" asp-append-version="true" width="150" height="150" />
+                                </div>
+                                <div class="detail-box">
+                                    <h6>
+                                        Product:
+                                        <span>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </span>
+                                    </h6>
+                                </div>
+                                <div class="detail-box">
+                                    <h6>
+                                        Available:
+                                        <span>
+                                            @Html.DisplayFor(modelItem => item.IsAvailable)
+                                        </span>
+                                    </h6>
+                                </div>
+                                <div class="detail-box">
+                                    <h6>
+                                        Stock:
+                                        <span>
+                                            @Html.DisplayFor(modelItem => item.Stock)
+                                        </span>
+                                    </h6>
+                                </div>
+                                <div class="detail-box">
+                                    <h6>
+                                       Price	:
+                                        <span>
+                                            @Html.DisplayFor(modelItem => item.Price)
+                                        </span>
+                                    </h6>
+                                </div>
+                                <a asp-controller="Orders" asp-action="AddItemToCart" asp-route-id="@item.Id" class="btn btn-outline-warning"><i class="fa fa-shopping-cart"></i></a>
+                                <a asp-controller="#" asp-action="#"><i class="fas fa-shopping-cart"></i></a>
+
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- End Book section -->
+</main>

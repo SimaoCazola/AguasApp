@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace AguasApp.Data.Entities
 {
-    public class CustomerService  // Class "AtendimentoCliente" (CustomerService):
+    public class CustomerService : IEntity  // Class "AtendimentoCliente" (CustomerService):
     {
         public int Id { get; set; }
 

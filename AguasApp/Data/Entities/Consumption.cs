@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace AguasApp.Data.Entities
 {
-    public class Consumption
+    public class Consumption: IEntity
     {
         public int Id { get; set; }
 

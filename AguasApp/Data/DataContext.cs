@@ -1,10 +1,11 @@
 ﻿using AguasApp.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using AguasApp.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AguasApp.Data
 {
-    public class DataContext:DbContext
+    public class DataContext: IdentityDbContext<User>
     {
         public DbSet<Product> Products { get; set; } 
 
@@ -28,12 +29,24 @@ namespace AguasApp.Data
 
         public DbSet<WaterMeter> WaterMeters { get; set; }
 
+        public DbSet<Order> Orders { get; set; } // Tabela dos Order
+
+        public DbSet<OrderDetail> OrderDetails { get; set; } // Tabela dos OrderDetail
+
+        public DbSet<OrderDetailTemp> OrderDetailsTemp { get; set; } // Tabela dos OrderDetailTemp
+
+        public DbSet<Cart> Carts { get; set; } 
+
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
             
         }
 
         public DbSet<AguasApp.Models.ProductSitesViewModel> ProductSitesViewModel { get; set; }
+
+        public DbSet<AguasApp.Data.Entities.Service> Service { get; set; }
+
+        public DbSet<AguasApp.Models.ProductViewModel> ProductViewModel { get; set; }
 
     }
 }

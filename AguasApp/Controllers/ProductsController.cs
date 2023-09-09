@@ -1,49 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AguasApp.Data;
+using AguasApp.Data.Entities;
+using AguasApp.Helpers;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using AguasApp.Data;
-using AguasApp.Data.Entities;
 
-namespace AguasApp.Controllers
+
+namespace InoProject.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly DataContext _context;
+        private readonly IProductRepository _productRepository;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IUserHelper _userHelper;
 
-        public ProductsController(DataContext context)
+        public ProductsController(IProductRepository productRepository, IWebHostEnvironment webHostEnvironment, IUserHelper userHelper)
         {
-            _context = context;
+            _productRepository = productRepository;
+            _webHostEnvironment = webHostEnvironment;
+            _userHelper = userHelper;
         }
 
-        // GET: Products
-        public async Task<IActionResult> Index()
+        // GET: Books--> Nao precisa de POST porque so vai mostrar a lista
+        public IActionResult Index()
         {
-            return View(await _context.Products.ToListAsync());
-        }
-
-        // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
+            var product = _productRepository.GetAll().OrderBy(p => p.Name);
 
             return View(product);
         }
 
-        // GET: Products/Create
+        // GET: Books/Create --> Mostrar a pagina ou view do Create
         public IActionResult Create()
         {
             return View();
@@ -54,18 +44,50 @@ namespace AguasApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,ImageId,LastPurchase,LastSale,IsAvailable,Stock")] Product product)
+        public async Task<IActionResult> Create(Product product)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
-                await _context.SaveChangesAsync();
+
+                //-----save image to wwwroot/image-->"CREATE"----
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(product.ImageFile.FileName);
+                string extension = Path.GetExtension(product.ImageFile.FileName);
+                product.Image = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/images/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await product.ImageFile.CopyToAsync(fileStream);
+                }
+                //-----End save image to wwwroot/image-->"CREATE"----
+
+                product.User = await _userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+                await _productRepository.CreateAsync(product);
                 return RedirectToAction(nameof(Index));
             }
             return View(product);
         }
 
-        // GET: Products/Edit/5
+        //Get Product Details
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _productRepository.GetByIdAsync(id.Value);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+
+
+
+        // GET: Books/Edit/5 ---> Aqui usamos GetByIdAsync, porque para mostrar apenas um item por editar
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,7 +95,7 @@ namespace AguasApp.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = await _productRepository.GetByIdAsync(id.Value);
             if (product == null)
             {
                 return NotFound();
@@ -81,12 +103,12 @@ namespace AguasApp.Controllers
             return View(product);
         }
 
-        // POST: Products/Edit/5
+        // POST: Books/Edit/5 --> Aqui vamos usar o Update porque ja estamos a atualizar 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,ImageId,LastPurchase,LastSale,IsAvailable,Stock")] Product product)
+        public async Task<IActionResult> Edit(int id, Product product)
         {
             if (id != product.Id)
             {
@@ -95,14 +117,28 @@ namespace AguasApp.Controllers
 
             if (ModelState.IsValid)
             {
+
+                //-----save image to wwwroot/image-->"EDIT"----
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(product.ImageFile.FileName);
+                string extension = Path.GetExtension(product.ImageFile.FileName);
+                product.Image = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/images/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await product.ImageFile.CopyToAsync(fileStream);
+                }
+                //-----End save image to wwwroot/image-->"EDIT"----
+
+
                 try
                 {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
+                    product.User = await _userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+                    await _productRepository.UpdateAsync(product);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.Id))
+                    if (!await _productRepository.ExistAsync(product.Id)) // Aqui vamos usar o existe
                     {
                         return NotFound();
                     }
@@ -116,7 +152,7 @@ namespace AguasApp.Controllers
             return View(product);
         }
 
-        // GET: Products/Delete/5
+        // GET: Books/Delete/5 ---> Aqui vamos usar o GetByIdAsync, porque queremos mostrar que vamos apagar apenas um livro
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,8 +160,7 @@ namespace AguasApp.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var product = await _productRepository.GetByIdAsync(id.Value);
             if (product == null)
             {
                 return NotFound();
@@ -134,20 +169,25 @@ namespace AguasApp.Controllers
             return View(product);
         }
 
-        // POST: Products/Delete/5
+        // POST: Books/Delete/5 ---> Aqui é onde realmente vamos apagar o livro
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
+            var product = await _productRepository.GetByIdAsync(id);
+
+            //------ Delete image from wwwroot/image-->"DELETE"----
+            var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", product.Image);
+            if (System.IO.File.Exists(imagePath))
+                System.IO.File.Delete(imagePath);
+            //------ Delete image from wwwroot/image-->"DELETE"----
+
+
+            await _productRepository.DeleteAsync(product);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(int id)
-        {
-            return _context.Products.Any(e => e.Id == id);
-        }
+      
+
     }
 }

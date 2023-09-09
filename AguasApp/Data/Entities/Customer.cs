@@ -4,7 +4,7 @@ using System;
 
 namespace AguasApp.Data.Entities
 {
-    public class Customer
+    public class Customer: IEntity
     {
         public int Id { get; set; }
 

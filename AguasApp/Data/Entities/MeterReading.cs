@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace AguasApp.Data.Entities
 {
-    public class MeterReading 
+    public class MeterReading : IEntity
     {
         public int Id { get; set; }
 

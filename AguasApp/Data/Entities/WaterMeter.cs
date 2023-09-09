@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace AguasApp.Data.Entities
 {
-    public class WaterMeter //Contador de Agua
+    public class WaterMeter : IEntity //Contador de Agua
     {
         public int Id { get; set; }
 
