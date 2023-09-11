@@ -1,4 +1,5 @@
 ﻿using AguasApp.Data;
+using AguasApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace AguasApp.Controllers
         public ProductSitesController(IProductRepository productRepository)
         {
             _productRepository = productRepository;
+           
         }
         public IActionResult Index()
         {
@@ -36,6 +38,5 @@ namespace AguasApp.Controllers
 
             return View(product);
         }
-
     }
 }

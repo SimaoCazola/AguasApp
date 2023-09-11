@@ -41,8 +41,8 @@ namespace AguasApp.Controllers
             string user = _context.Users.FirstOrDefault()?.Id;
 
             await _orderRepository.AddItemToCartAsync(item, this.User.Identity.Name);
-
-            return View();
+            return RedirectToAction("Create");
+            //return View();
         }
 
 

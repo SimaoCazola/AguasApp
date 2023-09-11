@@ -98,8 +98,10 @@
                                         </span>
                                     </h6>
                                 </div>
-                                <a asp-controller="Orders" asp-action="AddItemToCart" asp-route-id="@item.Id" class="btn btn-outline-warning"><i class="fa fa-shopping-cart"></i></a>
-                                <a asp-controller="#" asp-action="#"><i class="fas fa-shopping-cart"></i></a>
+
+                                <div>
+                                    <a asp-controller="Orders" asp-action="AddItemToCart" asp-route-id="@item.Id" class="btn btn-outline-warning"><i class="fa fa-shopping-cart"></i></a>
+                                </div>
 
                             </a>
                         </div>
@@ -111,3 +113,8 @@
 
     <!-- End Book section -->
 </main>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
