@@ -44,8 +44,8 @@ namespace AguasApp.Data.Entities
 
         //[Required]
         [Display(Name = "Total Amount*")]
-        [DisplayFormat(DataFormatString = "{0:N2}")]
-        public decimal Value => (decimal)Price * (decimal)Volume;
+        //[DisplayFormat(DataFormatString = "{0:N2}")]
+        public decimal Value => (decimal)Price * Volume;
 
 
         [Required]

@@ -48,7 +48,7 @@ namespace AguasApp.Controllers
         // GET: Contracts/Create
         public IActionResult Create()
         {
-            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "Address");
+            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "FullName");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace AguasApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "Address", contract.CustomerNameId);
+            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "FullName", contract.CustomerNameId);
             return View(contract);
         }
 
@@ -82,7 +82,7 @@ namespace AguasApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "Address", contract.CustomerNameId);
+            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "FullName", contract.CustomerNameId);
             return View(contract);
         }
 
@@ -118,7 +118,7 @@ namespace AguasApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "Address", contract.CustomerNameId);
+            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "FullName", contract.CustomerNameId);
             return View(contract);
         }
 
