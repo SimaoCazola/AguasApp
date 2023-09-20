@@ -43,17 +43,20 @@ namespace AguasApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("ConsumptionDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Descriptions")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Escalation")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("LastReadingDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Scalation")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<double>("Volume")
                         .HasColumnType("float");
@@ -70,10 +73,13 @@ namespace AguasApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ContractDuration")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ContractNumber")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CustomerNameId")
+                    b.Property<int>("CustomerNameId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("EndDate")
@@ -82,8 +88,8 @@ namespace AguasApp.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<double>("MonthlyValue")
-                        .HasColumnType("float");
+                    b.Property<string>("Nif")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -102,9 +108,8 @@ namespace AguasApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Address")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -120,9 +125,8 @@ namespace AguasApp.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Nif")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Nif")
+                        .HasColumnType("int");
 
                     b.Property<int>("PhoneNumber")
                         .HasColumnType("int");
@@ -143,27 +147,44 @@ namespace AguasApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AssociatedCustomerId")
+                    b.Property<string>("CustomerAdress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CustomerNameId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateTimeOpened")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Handler")
+                    b.Property<int>("Nif")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ServiceDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProblemDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TechnicianId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WaterMeterId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AssociatedCustomerId");
+                    b.HasIndex("CustomerNameId");
+
+                    b.HasIndex("TechnicianId");
+
+                    b.HasIndex("WaterMeterId");
 
                     b.ToTable("CustomerServices");
                 });
@@ -209,28 +230,53 @@ namespace AguasApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("AmountToPay")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("AssociatedCustomerId")
-                        .HasColumnType("int");
+                    b.Property<string>("Descriptions")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Entity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<int>("InvoiceNumber")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("IssueDate")
+                    b.Property<DateTime>("LastReadingDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("PaymentStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Nif")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Reference")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Scalation")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("Volume")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AssociatedCustomerId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Invoices");
                 });
@@ -242,20 +288,23 @@ namespace AguasApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AssociatedCustomerId")
+                    b.Property<int?>("CustomerNameId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ReadingDate")
+                    b.Property<int?>("NifId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("RegisteredConsumption")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("TodayDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("RegisteredConsumptionId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AssociatedCustomerId");
+                    b.HasIndex("CustomerNameId");
 
-                    b.HasIndex("RegisteredConsumptionId");
+                    b.HasIndex("NifId");
 
                     b.ToTable("MeterReadings");
                 });
@@ -464,8 +513,14 @@ namespace AguasApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FirstName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -565,29 +620,20 @@ namespace AguasApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("CurrentReading")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("CustomerLocationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageId")
-                        .IsRequired()
+                    b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsWorking")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastReadingDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Model")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<int>("ReferenceNumber")
+                        .HasColumnType("int");
 
-                    b.HasIndex("CustomerLocationId");
+                    b.HasKey("Id");
 
                     b.ToTable("WaterMeters");
                 });
@@ -750,18 +796,38 @@ namespace AguasApp.Migrations
                 {
                     b.HasOne("AguasApp.Data.Entities.Customer", "CustomerName")
                         .WithMany()
-                        .HasForeignKey("CustomerNameId");
+                        .HasForeignKey("CustomerNameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("CustomerName");
                 });
 
             modelBuilder.Entity("AguasApp.Data.Entities.CustomerService", b =>
                 {
-                    b.HasOne("AguasApp.Data.Entities.Customer", "AssociatedCustomer")
+                    b.HasOne("AguasApp.Data.Entities.Customer", "CustomerName")
                         .WithMany()
-                        .HasForeignKey("AssociatedCustomerId");
+                        .HasForeignKey("CustomerNameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("AssociatedCustomer");
+                    b.HasOne("AguasApp.Data.Entities.Technician", "Technician")
+                        .WithMany()
+                        .HasForeignKey("TechnicianId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AguasApp.Data.Entities.WaterMeter", "WaterMeter")
+                        .WithMany()
+                        .HasForeignKey("WaterMeterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CustomerName");
+
+                    b.Navigation("Technician");
+
+                    b.Navigation("WaterMeter");
                 });
 
             modelBuilder.Entity("AguasApp.Data.Entities.DistributionNetwork", b =>
@@ -787,26 +853,26 @@ namespace AguasApp.Migrations
 
             modelBuilder.Entity("AguasApp.Data.Entities.Invoice", b =>
                 {
-                    b.HasOne("AguasApp.Data.Entities.Customer", "AssociatedCustomer")
+                    b.HasOne("AguasApp.Data.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("AssociatedCustomerId");
+                        .HasForeignKey("UserId");
 
-                    b.Navigation("AssociatedCustomer");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AguasApp.Data.Entities.MeterReading", b =>
                 {
-                    b.HasOne("AguasApp.Data.Entities.Customer", "AssociatedCustomer")
+                    b.HasOne("AguasApp.Data.Entities.Customer", "CustomerName")
                         .WithMany()
-                        .HasForeignKey("AssociatedCustomerId");
+                        .HasForeignKey("CustomerNameId");
 
-                    b.HasOne("AguasApp.Data.Entities.Consumption", "RegisteredConsumption")
+                    b.HasOne("AguasApp.Data.Entities.Customer", "Nif")
                         .WithMany()
-                        .HasForeignKey("RegisteredConsumptionId");
+                        .HasForeignKey("NifId");
 
-                    b.Navigation("AssociatedCustomer");
+                    b.Navigation("CustomerName");
 
-                    b.Navigation("RegisteredConsumption");
+                    b.Navigation("Nif");
                 });
 
             modelBuilder.Entity("AguasApp.Data.Entities.Order", b =>
@@ -853,15 +919,6 @@ namespace AguasApp.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("AguasApp.Data.Entities.WaterMeter", b =>
-                {
-                    b.HasOne("AguasApp.Data.Entities.Customer", "CustomerLocation")
-                        .WithMany()
-                        .HasForeignKey("CustomerLocationId");
-
-                    b.Navigation("CustomerLocation");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

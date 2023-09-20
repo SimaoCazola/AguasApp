@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h1>Index</h1>
@@ -17,13 +17,19 @@
                 @Html.DisplayNameFor(model => model.ContractNumber)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Nif)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.StartDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.EndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MonthlyValue)
+                @Html.DisplayNameFor(model => model.ContractDuration)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsActive)
@@ -38,13 +44,19 @@
                 @Html.DisplayFor(modelItem => item.ContractNumber)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Nif)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName.Address)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.StartDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MonthlyValue)
+                @Html.DisplayFor(modelItem => item.ContractDuration)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsActive)

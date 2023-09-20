@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
 namespace AguasApp.Data.Entities
@@ -8,7 +10,14 @@ namespace AguasApp.Data.Entities
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; } 
+
+        public string Image { get; set; }
+
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
 
         [Required]
         public string Specialization { get; set; }
@@ -19,6 +28,9 @@ namespace AguasApp.Data.Entities
 
         [Required]
         [EmailAddress]
-        public string Email { get; set; }   
+        public string Email { get; set; }
+
+        public string FullName => $"{FirstName} {LastName}";
+
     }
 }

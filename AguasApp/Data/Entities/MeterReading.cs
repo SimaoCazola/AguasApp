@@ -9,16 +9,20 @@ namespace AguasApp.Data.Entities
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Reading Date*")]
-        public DateTime ReadingDate { get; set; }
+        [Display(Name = "Today Date*")]
+        public DateTime TodayDate { get; set; }
 
         [Required]
-        [Display(Name = "Consumption*")]
-        public Consumption RegisteredConsumption { get; set; }
+        [Display(Name = "Actual Reading Number*")]
+        public double RegisteredConsumption { get; set; }
 
         [Required]
-        [Display(Name = "Customer*")]
-        public Customer AssociatedCustomer { get; set; }
+        [Display(Name = "Customer Name*")]
+        public Customer CustomerName { get; set; } 
+
+        [Required]
+        [Display(Name = "Customer Name*")]
+        public Customer Nif { get; set; } 
 
     }  
 }

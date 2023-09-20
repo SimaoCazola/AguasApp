@@ -9,23 +9,40 @@ namespace AguasApp.Data.Entities
         public int Id { get; set; }
 
         [Required]
-        [DisplayFormat(DataFormatString = "{0:C2}")]
-        public decimal Price { get; set; }
+        [Display(Name = "Scalation*")]
+        public Scalation Scalation { get; set; }
+
+        public string Descriptions { get; set; }
+
+        //[Required]
+        [Display(Name = "Unit Price*")]
+        public Price Price { get; set; }
 
 
+        //[Required]
+        [Display(Name = "Volume*")]
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public double Volume { get; set; }
 
-
-        public decimal Value => Price * (decimal)Volume;
-
-        public string Escalation { get; set; }
+        //[Required]
+        [Display(Name = "Total Amount*")]
+        [DisplayFormat(DataFormatString = "{0:N2}")]
+        public decimal Value => (decimal)Price * (decimal)Volume;
+      
 
         [Required]
-        public DateTime ConsumptionDate { get; set; }
+        [Display(Name = "Today Date*")]
+        public DateTime TodayDate=> DateTime.Now;
 
-        public string Descriptions { get; set; }
-        
+        [Required]
+        [Display(Name = "Last Reading Date*")]
+        public DateTime LastReadingDate { get; set; }
+
+        //[Required]
+        [Display(Name = "Status*")]
+        public Status Status { get; set; }
+
+
     }
 }
  

@@ -11,10 +11,11 @@ namespace AguasApp.Data.Entities
         [Required]
         [Display(Name = "Contract Number*")]
         public int ContractNumber { get; set; }
+        public string Nif { get; set; }
 
-     
         [Display(Name = "Customer Name*")]
-        public Customer CustomerName { get; set; }
+        public int CustomerNameId { get; set; } 
+        public virtual Customer CustomerName { get; set; }
 
         [Required]
         [Display(Name = "Start Date*")]
@@ -24,11 +25,12 @@ namespace AguasApp.Data.Entities
         [Display(Name = "End Date*")]
         public DateTime EndDate { get; set; }
 
-
-        public double MonthlyValue { get; set; }
+       
+        [Display(Name = "Contrat Duration*")]
+        public string ContractDuration { get; set; }
 
         [Required]
-        [Display(Name = "Is Active*")]
+        [Display(Name = "Is Active Fidelization?*")]
         public bool IsActive { get; set; }
     }
 }

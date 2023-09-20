@@ -22,7 +22,8 @@ namespace AguasApp.Controllers
         // GET: Contracts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Contracts.ToListAsync());
+            var dataContext = _context.Contracts.Include(c => c.CustomerName);
+            return View(await dataContext.ToListAsync());
         }
 
         // GET: Contracts/Details/5
@@ -34,6 +35,7 @@ namespace AguasApp.Controllers
             }
 
             var contract = await _context.Contracts
+                .Include(c => c.CustomerName)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (contract == null)
             {
@@ -46,6 +48,7 @@ namespace AguasApp.Controllers
         // GET: Contracts/Create
         public IActionResult Create()
         {
+            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "Address");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace AguasApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ContractNumber,StartDate,EndDate,MonthlyValue,IsActive")] Contract contract)
+        public async Task<IActionResult> Create([Bind("Id,ContractNumber,Nif,CustomerNameId,StartDate,EndDate,ContractDuration,IsActive")] Contract contract)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace AguasApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "Address", contract.CustomerNameId);
             return View(contract);
         }
 
@@ -78,6 +82,7 @@ namespace AguasApp.Controllers
             {
                 return NotFound();
             }
+            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "Address", contract.CustomerNameId);
             return View(contract);
         }
 
@@ -86,7 +91,7 @@ namespace AguasApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ContractNumber,StartDate,EndDate,MonthlyValue,IsActive")] Contract contract)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ContractNumber,Nif,CustomerNameId,StartDate,EndDate,ContractDuration,IsActive")] Contract contract)
         {
             if (id != contract.Id)
             {
@@ -113,6 +118,7 @@ namespace AguasApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "Address", contract.CustomerNameId);
             return View(contract);
         }
 
@@ -125,6 +131,7 @@ namespace AguasApp.Controllers
             }
 
             var contract = await _context.Contracts
+                .Include(c => c.CustomerName)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (contract == null)
             {

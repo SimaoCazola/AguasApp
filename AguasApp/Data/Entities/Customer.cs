@@ -8,9 +8,9 @@ namespace AguasApp.Data.Entities
     {
         public int Id { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name ="Nif*")]
-        public string Nif { get; set; }
+        public int Nif { get; set; } 
 
 
         [Required]
@@ -31,7 +31,7 @@ namespace AguasApp.Data.Entities
 
 
         [Required]
-        public string Address { get; set; }
+        public int Address { get; set; }
 
         [Required]
         [Display(Name= "Postal Code*")]
@@ -40,5 +40,8 @@ namespace AguasApp.Data.Entities
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+
+        [Display(Name = "Full Name")]
+        public string FullName => $"{FirstName} {LastName}";
     }
 }

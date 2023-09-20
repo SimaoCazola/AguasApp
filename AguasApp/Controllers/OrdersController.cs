@@ -51,19 +51,33 @@ namespace AguasApp.Controllers
         // IAction do Tipo Create para mostrar os orders
         public async Task<IActionResult> Index()
         {
+           
             // Guardar na variavel model todas informacoes ja com os codigos para mostrar na view
             var model = await _orderRepository.GetOrderAsync(this.User.Identity.Name);
+           
+            return View(model);
+        }
+
+        public async Task<IActionResult> IndexAdmin() 
+        {
+
+            // Guardar na variavel model todas informacoes ja com os codigos para mostrar na view
+            var model = await _orderRepository.GetOrderAsync(this.User.Identity.Name);
+
             return View(model);
         }
 
         // IAction do Tipo CREATE para mostrar os ordersDetails
         public async Task<IActionResult> Create()
         {
+            
             // Guardar na variavel model todas informacoes ja com os codigos para mostrar na view
             var model = await _orderRepository.GetDetailTempsAsync(this.User.Identity.Name);
+          
             return View(model);
         }
 
+        
         // Mostrar a view do botao AddProduct da Combox--> CREATE
         public IActionResult AddProduct()
         {
@@ -166,7 +180,7 @@ namespace AguasApp.Controllers
             if (ModelState.IsValid)
             {
                 await _orderRepository.DeliverOrder(model);
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexAdmin");
             }
 
             return View();

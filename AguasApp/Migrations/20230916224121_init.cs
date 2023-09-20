@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AguasApp.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -55,11 +55,12 @@ namespace AguasApp.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ScalationId = table.Column<int>(type: "int", nullable: false),
+                    Descriptions = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Volume = table.Column<double>(type: "float", nullable: false),
-                    Escalation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConsumptionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Descriptions = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    LastReadingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StatusId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,7 +73,7 @@ namespace AguasApp.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nif = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nif = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PhoneNumber = table.Column<int>(type: "int", nullable: false),
@@ -83,6 +84,23 @@ namespace AguasApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Invoices",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InvoiceNumber = table.Column<int>(type: "int", nullable: false),
+                    IssueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AmountToPay = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PaymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Invoices", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -129,7 +147,9 @@ namespace AguasApp.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Specialization = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -137,6 +157,22 @@ namespace AguasApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Technicians", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WaterMeters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Model = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ReferenceNumber = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WaterMeters", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -299,10 +335,11 @@ namespace AguasApp.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ContractNumber = table.Column<int>(type: "int", nullable: false),
-                    CustomerNameId = table.Column<int>(type: "int", nullable: true),
+                    Nif = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CustomerNameId = table.Column<int>(type: "int", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    MonthlyValue = table.Column<double>(type: "float", nullable: false),
+                    ContractDuration = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -313,54 +350,7 @@ namespace AguasApp.Migrations
                         column: x => x.CustomerNameId,
                         principalTable: "Customers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CustomerServices",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DateTimeOpened = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AssociatedCustomerId = table.Column<int>(type: "int", nullable: true),
-                    ProblemDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Handler = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CustomerServices", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CustomerServices_Customers_AssociatedCustomerId",
-                        column: x => x.AssociatedCustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Invoices",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    InvoiceNumber = table.Column<int>(type: "int", nullable: false),
-                    IssueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AmountToPay = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PaymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AssociatedCustomerId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Invoices", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Invoices_Customers_AssociatedCustomerId",
-                        column: x => x.AssociatedCustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -369,9 +359,10 @@ namespace AguasApp.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ReadingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TodayDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastReadingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RegisteredConsumptionId = table.Column<int>(type: "int", nullable: true),
-                    AssociatedCustomerId = table.Column<int>(type: "int", nullable: true)
+                    CustomerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -383,33 +374,84 @@ namespace AguasApp.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_MeterReadings_Customers_AssociatedCustomerId",
-                        column: x => x.AssociatedCustomerId,
+                        name: "FK_MeterReadings_Customers_CustomerId",
+                        column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "WaterMeters",
+                name: "CustomerServices",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CustomerLocationId = table.Column<int>(type: "int", nullable: true),
-                    CurrentReading = table.Column<double>(type: "float", nullable: false),
-                    LastReadingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsWorking = table.Column<bool>(type: "bit", nullable: false)
+                    ServiceDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateTimeOpened = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CustomerNameId = table.Column<int>(type: "int", nullable: false),
+                    CustomerAdress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nif = table.Column<int>(type: "int", nullable: false),
+                    PhoneNumber = table.Column<int>(type: "int", nullable: false),
+                    StatusId = table.Column<int>(type: "int", nullable: false),
+                    TechnicianId = table.Column<int>(type: "int", nullable: false),
+                    WaterMeterId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WaterMeters", x => x.Id);
+                    table.PrimaryKey("PK_CustomerServices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WaterMeters_Customers_CustomerLocationId",
-                        column: x => x.CustomerLocationId,
+                        name: "FK_CustomerServices_Customers_CustomerNameId",
+                        column: x => x.CustomerNameId,
                         principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CustomerServices_Technicians_TechnicianId",
+                        column: x => x.TechnicianId,
+                        principalTable: "Technicians",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CustomerServices_WaterMeters_WaterMeterId",
+                        column: x => x.WaterMeterId,
+                        principalTable: "WaterMeters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DistributionNetworks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: true),
+                    TechnicianId = table.Column<int>(type: "int", nullable: true),
+                    WaterMeterId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DistributionNetworks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DistributionNetworks_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DistributionNetworks_Technicians_TechnicianId",
+                        column: x => x.TechnicianId,
+                        principalTable: "Technicians",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DistributionNetworks_WaterMeters_WaterMeterId",
+                        column: x => x.WaterMeterId,
+                        principalTable: "WaterMeters",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -489,41 +531,6 @@ namespace AguasApp.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "DistributionNetworks",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: true),
-                    TechnicianId = table.Column<int>(type: "int", nullable: true),
-                    WaterMeterId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DistributionNetworks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DistributionNetworks_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_DistributionNetworks_Technicians_TechnicianId",
-                        column: x => x.TechnicianId,
-                        principalTable: "Technicians",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_DistributionNetworks_WaterMeters_WaterMeterId",
-                        column: x => x.WaterMeterId,
-                        principalTable: "WaterMeters",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -574,9 +581,19 @@ namespace AguasApp.Migrations
                 column: "CustomerNameId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerServices_AssociatedCustomerId",
+                name: "IX_CustomerServices_CustomerNameId",
                 table: "CustomerServices",
-                column: "AssociatedCustomerId");
+                column: "CustomerNameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerServices_TechnicianId",
+                table: "CustomerServices",
+                column: "TechnicianId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerServices_WaterMeterId",
+                table: "CustomerServices",
+                column: "WaterMeterId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DistributionNetworks_CustomerId",
@@ -594,14 +611,9 @@ namespace AguasApp.Migrations
                 column: "WaterMeterId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Invoices_AssociatedCustomerId",
-                table: "Invoices",
-                column: "AssociatedCustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MeterReadings_AssociatedCustomerId",
+                name: "IX_MeterReadings_CustomerId",
                 table: "MeterReadings",
-                column: "AssociatedCustomerId");
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MeterReadings_RegisteredConsumptionId",
@@ -637,11 +649,6 @@ namespace AguasApp.Migrations
                 name: "IX_Products_UserId",
                 table: "Products",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WaterMeters_CustomerLocationId",
-                table: "WaterMeters",
-                column: "CustomerLocationId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -704,13 +711,13 @@ namespace AguasApp.Migrations
                 name: "Consumptions");
 
             migrationBuilder.DropTable(
+                name: "Customers");
+
+            migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

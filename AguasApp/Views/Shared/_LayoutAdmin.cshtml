@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AguasApp</title>
 
+    <link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+
+
     <script src="~/layout/assets/demo/chart-area-demo.js"></script>
     <script src="~/layout/assets/demo/chart-bar-demo.js"></script>
     <script src="~/layout/assets/demo/chart-pie-demo.js"></script>
@@ -79,8 +84,60 @@
                                 </nav>
                             </div>
 
+                            <a class="nav-link" asp-area="" asp-controller="Customers" asp-action="Index">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Customers
+                            </a>
 
+                            <a class="nav-link" asp-area="" asp-controller="Contracts" asp-action="Index">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Contracts
+                            </a>
 
+                            <a class="nav-link" asp-area="" asp-controller="Products" asp-action="Index">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Products
+                            </a>
+
+                            <a class="nav-link" asp-area="" asp-controller="Services" asp-action="Index">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Services
+                            </a>
+    
+                            <a class="nav-link" asp-area="" asp-controller="Meter Reading" asp-action="Index">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Meter Reading
+                            </a>
+
+                            <a class="nav-link" asp-area="" asp-controller="Consumptions" asp-action="Index">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Consumption
+                            </a>
+
+                            <a class="nav-link" asp-area="" asp-controller="Invoices" asp-action="Index">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Invoices
+                            </a>
+
+                            <a class="nav-link" asp-area="" asp-controller="Orders" asp-action="IndexAdmin">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Orders
+                            </a>
+
+                            <a class="nav-link" asp-area="" asp-controller="CustomerServices" asp-action="Index">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Deliver Services
+                            </a>
+
+                            <a class="nav-link" asp-area="" asp-controller="Technicians" asp-action="Index">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Technicians
+                            </a>
+
+                            <a class="nav-link" asp-area="" asp-controller="WaterMeters" asp-action="Index">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                WaterMeter
+                            </a>
                         </div>
                     </div>
                 </nav>
@@ -107,7 +164,10 @@
 
     </footer>
 
-
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-@await RenderSectionAsync("Scripts", required: false)
