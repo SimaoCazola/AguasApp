@@ -22,7 +22,7 @@ namespace AguasApp.Data.Entities
         //[Required]
         [Display(Name = "Volume*")]
         [DisplayFormat(DataFormatString = "{0:N2}")]
-        public double Volume { get; set; }
+        public int Volume { get; set; } 
 
         //[Required]
         [Display(Name = "Total Amount*")]

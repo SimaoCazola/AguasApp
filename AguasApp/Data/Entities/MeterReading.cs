@@ -13,16 +13,25 @@ namespace AguasApp.Data.Entities
         public DateTime TodayDate { get; set; }
 
         [Required]
-        [Display(Name = "Actual Reading Number*")]
-        public double RegisteredConsumption { get; set; }
+        //[Display(Name = "Actual Reading Number*")]
+        public int Volume { get; set; } 
 
         [Required]
         [Display(Name = "Customer Name*")]
-        public Customer CustomerName { get; set; } 
+        public string CustomerName { get; set; } 
 
         [Required]
-        [Display(Name = "Customer Name*")]
-        public Customer Nif { get; set; } 
+        public int Nif { get; set; }
+
+
+        [Display(Name = "Counter Name*")]
+        public string CounterName { get; set; }
+
+
+        [Display(Name = "Counter Number*")]
+        public int CounterNumber { get; set; } 
+
+        public string Description { get; set; } 
 
     }  
 }

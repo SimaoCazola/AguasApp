@@ -1,0 +1,144 @@
+﻿@using AguasApp.Data.Entities
+@model MeterReadingViewModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" />
+<h1>Create</h1>
+
+<h4>MeterReading</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MeterReading.TodayDate" class="control-label"></label>
+                <input asp-for="MeterReading.TodayDate" class="form-control" />
+                <span asp-validation-for="MeterReading.TodayDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MeterReading.Volume" class="control-label"></label>
+                <input asp-for="MeterReading.Volume" class="form-control" />
+                <span asp-validation-for="MeterReading.Volume" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MeterReading.CustomerName" class="control-label"></label>
+                <input asp-for="MeterReading.CustomerName" class="form-control" />
+                <span asp-validation-for="MeterReading.CustomerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MeterReading.Nif" class="control-label"></label>
+                <input asp-for="MeterReading.Nif" class="form-control" />
+                <span asp-validation-for="MeterReading.Nif" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MeterReading.CounterName" class="control-label"></label>
+                <input asp-for="MeterReading.CounterName" class="form-control" />
+                <span asp-validation-for="MeterReading.CounterName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MeterReading.CounterNumber" class="control-label"></label>
+                <input asp-for="MeterReading.CounterNumber" class="form-control" />
+                <span asp-validation-for="MeterReading.CounterNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MeterReading.Description" class="control-label"></label>
+                <input asp-for="MeterReading.Description" class="form-control" />
+                <span asp-validation-for="MeterReading.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@*----------------Customer Table --------------------------*@
+<hr />
+<h1>Customer</h1>
+
+<p>
+    <a asp-controller="Customers" asp-action="Create">Create New</a>
+</p>
+<table class="table" id="Customer">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.Nif)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.FullName)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Customers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nif)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+            </tr>
+        }
+        
+    </tbody>
+</table>
+
+@*----------------Water Meter Table--------------------------*@
+<hr />
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" id="Watermeter">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WaterMeter.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WaterMeter.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WaterMeter.ReferenceNumber)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.WaterMeters)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <img src="@("~/images/"+item.Image)" asp-append-version="true" alt="Image" style="width:100px;height:150px;max-width:100%;height:auto;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReferenceNumber)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#Customer').DataTable();
+            $('#Watermeter').DataTable();
+        });
+    </script>
+}

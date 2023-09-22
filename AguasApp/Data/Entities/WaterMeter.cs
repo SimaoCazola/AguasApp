@@ -24,18 +24,6 @@ namespace AguasApp.Data.Entities
         [Display(Name = "Serial Number")]
         public int ReferenceNumber { get; set; } 
 
-        //[Required]
-        //[Display(Name = "Current Reading*")]
-        //public double CurrentReading { get; set; }
-
-        //[Required]
-        //[Display(Name = "Last Reading*")]
-        //public DateTime LastReadingDate { get; set; }
-
-        //[Required]
-        //[Display(Name = "Is Working*")]
-        //public bool IsWorking { get; set; } 
-
-
+        
     }
 }
