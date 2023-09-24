@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AguasApp.Data;
 using AguasApp.Data.Entities;
+using AguasApp.Models;
 
 namespace AguasApp.Controllers
 {
@@ -22,7 +23,7 @@ namespace AguasApp.Controllers
         // GET: CustomerServices
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.CustomerServices.Include(c => c.CustomerName).Include(c => c.Technician).Include(c => c.WaterMeter);
+            var dataContext = _context.CustomerServices.Include(c => c.ServiceName);
             return View(await dataContext.ToListAsync());
         }
 
@@ -35,9 +36,7 @@ namespace AguasApp.Controllers
             }
 
             var customerService = await _context.CustomerServices
-                .Include(c => c.CustomerName)
-                .Include(c => c.Technician)
-                .Include(c => c.WaterMeter)
+                .Include(c => c.ServiceName)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (customerService == null)
             {
@@ -50,10 +49,26 @@ namespace AguasApp.Controllers
         // GET: CustomerServices/Create
         public IActionResult Create()
         {
-            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "FullName");
-            ViewData["TechnicianId"] = new SelectList(_context.Technicians, "Id", "FullName");
-            ViewData["WaterMeterId"] = new SelectList(_context.WaterMeters, "Id", "Name");
-            return View();
+            ViewData["ServiceId"] = new SelectList(_context.Service, "Id", "Name");
+
+            var customerList = _context.Customers.ToList();
+            var technician = _context.Technicians.ToList();
+            var waterMeter = _context.WaterMeters.ToList();
+
+            var viewModel = new CustomerServiceViewModel
+            {
+                CustomerService = new CustomerService(), // Inicializa uma nova instância de Invoice
+                Customer = new Customer(), // Inicializa uma nova instância de Customer
+                Technician = new Technician(),
+                WaterMeter = new WaterMeter(),
+
+
+                Customers = customerList, // Obtém a lista de clientes
+                Technicians = technician, // Obtém a lista de Tecnicos
+                WaterMeters = waterMeter // Obtém a lista de Contadores
+            };
+
+            return View(viewModel);
         }
 
         // POST: CustomerServices/Create
@@ -61,7 +76,7 @@ namespace AguasApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ServiceDescription,DateTimeOpened,StartDate,CustomerNameId,CustomerAdress,Nif,PhoneNumber,Status,TechnicianId,WaterMeterId")] CustomerService customerService)
+        public async Task<IActionResult> Create([Bind("Id,ServiceId,StartDate,CustomerName,CustomerAdress,Nif,PhoneNumber,Status,TechnicianName,TechnicianPhone,WaterMeterName,WaterMeterNumber")] CustomerService customerService)
         {
             if (ModelState.IsValid)
             {
@@ -69,10 +84,26 @@ namespace AguasApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "FullName", customerService.CustomerNameId);
-            ViewData["TechnicianId"] = new SelectList(_context.Technicians, "Id", "FullName", customerService.TechnicianId);
-            ViewData["WaterMeterId"] = new SelectList(_context.WaterMeters, "Id", "Name", customerService.WaterMeterId);
-            return View(customerService);
+            ViewData["ServiceId"] = new SelectList(_context.Service, "Id", "Name", customerService.ServiceId);
+
+            var customerList = _context.Customers.ToList();
+            var technician = _context.Technicians.ToList();
+            var waterMeter = _context.WaterMeters.ToList();
+
+            var viewModel = new CustomerServiceViewModel
+            {
+                CustomerService = new CustomerService(), // Inicializa uma nova instância de Invoice
+                Customer = new Customer(), // Inicializa uma nova instância de Customer
+                Technician = new Technician(),
+                WaterMeter= new WaterMeter(),   
+
+
+                Customers = customerList, // Obtém a lista de clientes
+                Technicians = technician, // Obtém a lista de Tecnicos
+                WaterMeters = waterMeter // Obtém a lista de Contadores
+            };
+
+            return View(viewModel);
         }
 
         // GET: CustomerServices/Edit/5
@@ -88,9 +119,7 @@ namespace AguasApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "FullName", customerService.CustomerNameId);
-            ViewData["TechnicianId"] = new SelectList(_context.Technicians, "Id", "FullName", customerService.TechnicianId);
-            ViewData["WaterMeterId"] = new SelectList(_context.WaterMeters, "Id", "Name", customerService.WaterMeterId);
+            ViewData["ServiceId"] = new SelectList(_context.Service, "Id", "Name", customerService.ServiceId);
             return View(customerService);
         }
 
@@ -99,7 +128,7 @@ namespace AguasApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ServiceDescription,DateTimeOpened,StartDate,CustomerNameId,CustomerAdress,Nif,PhoneNumber,Status,TechnicianId,WaterMeterId")] CustomerService customerService)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ServiceId,StartDate,CustomerName,CustomerAdress,Nif,PhoneNumber,Status,TechnicianName,TechnicianPhone,WaterMeterName,WaterMeterNumber")] CustomerService customerService)
         {
             if (id != customerService.Id)
             {
@@ -126,9 +155,7 @@ namespace AguasApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "FullName", customerService.CustomerNameId);
-            ViewData["TechnicianId"] = new SelectList(_context.Technicians, "Id", "FullName", customerService.TechnicianId);
-            ViewData["WaterMeterId"] = new SelectList(_context.WaterMeters, "Id", "Name", customerService.WaterMeterId);
+            ViewData["ServiceId"] = new SelectList(_context.Service, "Id", "Name", customerService.ServiceId);
             return View(customerService);
         }
 
@@ -141,9 +168,7 @@ namespace AguasApp.Controllers
             }
 
             var customerService = await _context.CustomerServices
-                .Include(c => c.CustomerName)
-                .Include(c => c.Technician)
-                .Include(c => c.WaterMeter)
+                .Include(c => c.ServiceName)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (customerService == null)
             {

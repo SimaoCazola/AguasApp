@@ -13,17 +13,11 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ServiceDescription)
+            @Html.DisplayNameFor(model => model.ServiceName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ServiceDescription)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateTimeOpened)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateTimeOpened)
-        </dd>
+            @Html.DisplayFor(model => model.ServiceName.Id)
+        </dd class>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.StartDate)
         </dt>
@@ -34,8 +28,8 @@
             @Html.DisplayNameFor(model => model.CustomerName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CustomerName.Address)
-        </dd class>
+            @Html.DisplayFor(model => model.CustomerName)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CustomerAdress)
         </dt>
@@ -61,17 +55,29 @@
             @Html.DisplayFor(model => model.Status)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Technician)
+            @Html.DisplayNameFor(model => model.TechnicianName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Technician.Email)
-        </dd class>
+            @Html.DisplayFor(model => model.TechnicianName)
+        </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.WaterMeter)
+            @Html.DisplayNameFor(model => model.TechnicianPhone)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.WaterMeter.Name)
-        </dd class>
+            @Html.DisplayFor(model => model.TechnicianPhone)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WaterMeterName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WaterMeterName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WaterMeterNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WaterMeterNumber)
+        </dd>
     </dl>
     
     <form asp-action="Delete">

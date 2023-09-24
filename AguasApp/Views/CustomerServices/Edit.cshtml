@@ -1,5 +1,5 @@
 ﻿@using AguasApp.Data.Entities
-@model AguasApp.Data.Entities.CustomerService
+@model CustomerService
 
 @{
     ViewData["Title"] = "Edit";
@@ -16,14 +16,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="ServiceDescription" class="control-label"></label>
-                <input asp-for="ServiceDescription" class="form-control" />
-                <span asp-validation-for="ServiceDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateTimeOpened" class="control-label"></label>
-                <input asp-for="DateTimeOpened" class="form-control" />
-                <span asp-validation-for="DateTimeOpened" class="text-danger"></span>
+                <label asp-for="ServiceId" class="control-label"></label>
+                <select asp-for="ServiceId" class="form-control" asp-items="ViewBag.ServiceId"></select>
+                <span asp-validation-for="ServiceId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="StartDate" class="control-label"></label>
@@ -31,9 +26,9 @@
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CustomerNameId" class="control-label"></label>
-                <select asp-for="CustomerNameId" class="form-control" asp-items="ViewBag.CustomerNameId"></select>
-                <span asp-validation-for="CustomerNameId" class="text-danger"></span>
+                <label asp-for="CustomerName" class="control-label"></label>
+                <input asp-for="CustomerName" class="form-control" />
+                <span asp-validation-for="CustomerName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CustomerAdress" class="control-label"></label>
@@ -56,14 +51,24 @@
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TechnicianId" class="control-label"></label>
-                <select asp-for="TechnicianId" class="form-control" asp-items="ViewBag.TechnicianId"></select>
-                <span asp-validation-for="TechnicianId" class="text-danger"></span>
+                <label asp-for="TechnicianName" class="control-label"></label>
+                <input asp-for="TechnicianName" class="form-control" />
+                <span asp-validation-for="TechnicianName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WaterMeterId" class="control-label"></label>
-                <select asp-for="WaterMeterId" class="form-control" asp-items="ViewBag.WaterMeterId"></select>
-                <span asp-validation-for="WaterMeterId" class="text-danger"></span>
+                <label asp-for="TechnicianPhone" class="control-label"></label>
+                <input asp-for="TechnicianPhone" class="form-control" />
+                <span asp-validation-for="TechnicianPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WaterMeterName" class="control-label"></label>
+                <input asp-for="WaterMeterName" class="form-control" />
+                <span asp-validation-for="WaterMeterName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WaterMeterNumber" class="control-label"></label>
+                <input asp-for="WaterMeterNumber" class="form-control" />
+                <span asp-validation-for="WaterMeterNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

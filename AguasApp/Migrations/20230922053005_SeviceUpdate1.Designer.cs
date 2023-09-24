@@ -4,14 +4,16 @@ using AguasApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AguasApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230922053005_SeviceUpdate1")]
+    partial class SeviceUpdate1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,8 +81,8 @@ namespace AguasApp.Migrations
                     b.Property<int>("ContractNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("CustomerName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CustomerNameId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
@@ -95,6 +97,8 @@ namespace AguasApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerNameId");
 
                     b.ToTable("Contracts");
                 });
@@ -786,6 +790,17 @@ namespace AguasApp.Migrations
                         .HasForeignKey("ProductId");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("AguasApp.Data.Entities.Contract", b =>
+                {
+                    b.HasOne("AguasApp.Data.Entities.Customer", "CustomerName")
+                        .WithMany()
+                        .HasForeignKey("CustomerNameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CustomerName");
                 });
 
             modelBuilder.Entity("AguasApp.Data.Entities.CustomerService", b =>

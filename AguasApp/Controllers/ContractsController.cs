@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AguasApp.Data;
 using AguasApp.Data.Entities;
+using AguasApp.Models;
 
 namespace AguasApp.Controllers
 {
@@ -22,8 +23,8 @@ namespace AguasApp.Controllers
         // GET: Contracts
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.Contracts.Include(c => c.CustomerName);
-            return View(await dataContext.ToListAsync());
+            return View(await _context.Contracts.ToListAsync());
+            
         }
 
         // GET: Contracts/Details/5
@@ -48,8 +49,17 @@ namespace AguasApp.Controllers
         // GET: Contracts/Create
         public IActionResult Create()
         {
-            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "FullName");
-            return View();
+            var customerList = _context.Customers.ToList();
+
+            var viewModel = new ContractViewModel
+            {
+                Contract = new Contract(), // Inicializa uma nova instância de Contratos
+                Customer = new Customer(), // Inicializa uma nova instância de Customer
+               
+
+                Customers = customerList, // Obtém a lista de clientes 
+            };
+            return View(viewModel);
         }
 
         // POST: Contracts/Create
@@ -65,8 +75,17 @@ namespace AguasApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "FullName", contract.CustomerNameId);
-            return View(contract);
+
+            var customerList = _context.Customers.ToList();
+
+            var viewModel = new ContractViewModel
+            {
+                Contract = contract, // Inicializa uma nova instância de Contratos
+                Customer = new Customer(), // Inicializa uma nova instância de Customer
+
+                Customers = customerList, // Obtém a lista de clientes 
+            };
+            return View(viewModel);
         }
 
         // GET: Contracts/Edit/5
@@ -82,7 +101,7 @@ namespace AguasApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "FullName", contract.CustomerNameId);
+           
             return View(contract);
         }
 
@@ -118,7 +137,7 @@ namespace AguasApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerNameId"] = new SelectList(_context.Customers, "Id", "FullName", contract.CustomerNameId);
+           
             return View(contract);
         }
 

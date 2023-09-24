@@ -46,6 +46,7 @@ namespace AguasApp.Controllers
         // GET: Customers/Create
         public IActionResult Create()
         {
+
             return View();
         }
 

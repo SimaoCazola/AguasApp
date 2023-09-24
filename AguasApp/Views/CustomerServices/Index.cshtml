@@ -14,10 +14,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ServiceDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateTimeOpened)
+                @Html.DisplayNameFor(model => model.ServiceName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.StartDate)
@@ -38,10 +35,16 @@
                 @Html.DisplayNameFor(model => model.Status)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Technician)
+                @Html.DisplayNameFor(model => model.TechnicianName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.WaterMeter)
+                @Html.DisplayNameFor(model => model.TechnicianPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WaterMeterName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WaterMeterNumber)
             </th>
             <th></th>
         </tr>
@@ -50,19 +53,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ServiceDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateTimeOpened)
+                @Html.DisplayFor(modelItem => item.ServiceName.Id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.StartDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CustomerName.FullName)
+                @Html.DisplayFor(modelItem => item.CustomerName)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.CustomerAdress)
+                @Html.DisplayFor(modelItem => item.CustomerAdress)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Nif)
@@ -74,10 +74,16 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Technician.Email)
+                @Html.DisplayFor(modelItem => item.TechnicianName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.WaterMeter.Name)
+                @Html.DisplayFor(modelItem => item.TechnicianPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WaterMeterName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WaterMeterNumber)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

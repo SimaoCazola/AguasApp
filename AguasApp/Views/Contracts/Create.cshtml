@@ -1,4 +1,5 @@
-﻿@model AguasApp.Data.Entities.Contract
+﻿@using AguasApp.Data.Entities
+@model ContractViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -14,37 +15,38 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ContractNumber" class="control-label"></label>
-                <input asp-for="ContractNumber" class="form-control" />
-                <span asp-validation-for="ContractNumber" class="text-danger"></span>
+                <label asp-for="Contract.ContractNumber" class="control-label"></label>
+                <input asp-for="Contract.ContractNumber" class="form-control" />
+                <span asp-validation-for="Contract.ContractNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Nif" class="control-label"></label>
-                <input asp-for="Nif" class="form-control" />
-                <span asp-validation-for="Nif" class="text-danger"></span>
+                <label asp-for="Contract.Nif" class="control-label"></label>
+                <input asp-for="Contract.Nif" class="form-control" />
+                <span asp-validation-for="Contract.Nif" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CustomerNameId" class="control-label"></label>
-                <select asp-for="CustomerNameId" class ="form-control" asp-items="ViewBag.CustomerNameId"></select>
+                <label asp-for="Contract.CustomerName" class="control-label"></label>
+                <input asp-for="Contract.CustomerName" class="form-control" />
+                <span asp-validation-for="Contract.CustomerName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
+                <label asp-for="Contract.StartDate" class="control-label"></label>
+                <input asp-for="Contract.StartDate" class="form-control" />
+                <span asp-validation-for="Contract.StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" />
-                <span asp-validation-for="EndDate" class="text-danger"></span>
+                <label asp-for="Contract.EndDate" class="control-label"></label>
+                <input asp-for="Contract.EndDate" class="form-control" />
+                <span asp-validation-for="Contract.EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ContractDuration" class="control-label"></label>
-                <input asp-for="ContractDuration" class="form-control" />
-                <span asp-validation-for="ContractDuration" class="text-danger"></span>
+                <label asp-for="Contract.ContractDuration" class="control-label"></label>
+                <input asp-for="Contract.ContractDuration" class="form-control" />
+                <span asp-validation-for="Contract.ContractDuration" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                    <input class="form-check-input" asp-for="Contract.IsActive" /> @Html.DisplayNameFor(model => model.Contract.IsActive)
                 </label>
             </div>
             <div class="form-group">
@@ -58,3 +60,81 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<hr />
+@*-------------CUSTOMER----------------*@
+<h1>Customer</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" id="MyTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.Nif)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.PostalCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Customers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nif)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostalCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#MyTable').DataTable();
+        });
+    </script>
+}

@@ -14,8 +14,7 @@ namespace AguasApp.Data.Entities
         public string Nif { get; set; }
 
         [Display(Name = "Customer Name*")]
-        public int CustomerNameId { get; set; } 
-        public virtual Customer CustomerName { get; set; }
+        public string CustomerName { get; set; }  
 
         [Required]
         [Display(Name = "Start Date*")]

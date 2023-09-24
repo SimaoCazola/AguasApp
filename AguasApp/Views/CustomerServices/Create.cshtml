@@ -1,11 +1,11 @@
 ﻿@using AguasApp.Data.Entities
-@model AguasApp.Data.Entities.CustomerService
+@model CustomerServiceViewModel
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" />
 <h1>Create</h1>
 
 <h4>CustomerService</h4>
@@ -15,51 +15,58 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ServiceDescription" class="control-label"></label>
-                <input asp-for="ServiceDescription" class="form-control" />
-                <span asp-validation-for="ServiceDescription" class="text-danger"></span>
+                <label asp-for="CustomerService.ServiceId" class="control-label"></label>
+                <select asp-for="CustomerService.ServiceId" class="form-control" asp-items="ViewBag.ServiceId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="DateTimeOpened" class="control-label"></label>
-                <input asp-for="DateTimeOpened" class="form-control" />
-                <span asp-validation-for="DateTimeOpened" class="text-danger"></span>
+                <label asp-for="CustomerService.StartDate" class="control-label"></label>
+                <input asp-for="CustomerService.StartDate" class="form-control" />
+                <span asp-validation-for="CustomerService.StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
+                <label asp-for="CustomerService.CustomerName" class="control-label"></label>
+                <input asp-for="CustomerService.CustomerName" class="form-control" />
+                <span asp-validation-for="CustomerService.CustomerName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CustomerNameId" class="control-label"></label>
-                <select asp-for="CustomerNameId" class ="form-control" asp-items="ViewBag.CustomerNameId"></select>
+                <label asp-for="CustomerService.CustomerAdress" class="control-label"></label>
+                <input asp-for="CustomerService.CustomerAdress" class="form-control" />
+                <span asp-validation-for="CustomerService.CustomerAdress" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CustomerAdress" class="control-label"></label>
-                <input asp-for="CustomerAdress" class="form-control" />
-                <span asp-validation-for="CustomerAdress" class="text-danger"></span>
+                <label asp-for="CustomerService.Nif" class="control-label"></label>
+                <input asp-for="CustomerService.Nif" class="form-control" />
+                <span asp-validation-for="CustomerService.Nif" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Nif" class="control-label"></label>
-                <input asp-for="Nif" class="form-control" />
-                <span asp-validation-for="Nif" class="text-danger"></span>
+                <label asp-for="CustomerService.PhoneNumber" class="control-label"></label>
+                <input asp-for="CustomerService.PhoneNumber" class="form-control" />
+                <span asp-validation-for="CustomerService.PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                <label asp-for="CustomerService.Status" class="control-label"></label>
+                <select asp-for="CustomerService.Status" class="form-control" asp-items="Html.GetEnumSelectList<Status>()"></select>
+                <span asp-validation-for="CustomerService.Status" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <select asp-for="Status" class="form-control" asp-items="Html.GetEnumSelectList<Status>()"></select>
-                <span asp-validation-for="Status" class="text-danger"></span>
+                <label asp-for="CustomerService.TechnicianName" class="control-label"></label>
+                <input asp-for="CustomerService.TechnicianName" class="form-control" />
+                <span asp-validation-for="CustomerService.TechnicianName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TechnicianId" class="control-label"></label>
-                <select asp-for="TechnicianId" class ="form-control" asp-items="ViewBag.TechnicianId"></select>
+                <label asp-for="CustomerService.TechnicianPhone" class="control-label"></label>
+                <input asp-for="CustomerService.TechnicianPhone" class="form-control" />
+                <span asp-validation-for="CustomerService.TechnicianPhone" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WaterMeterId" class="control-label"></label>
-                <select asp-for="WaterMeterId" class ="form-control" asp-items="ViewBag.WaterMeterId"></select>
+                <label asp-for="CustomerService.WaterMeterName" class="control-label"></label>
+                <input asp-for="CustomerService.WaterMeterName" class="form-control" />
+                <span asp-validation-for="CustomerService.WaterMeterName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerService.WaterMeterNumber" class="control-label"></label>
+                <input asp-for="CustomerService.WaterMeterNumber" class="form-control" />
+                <span asp-validation-for="CustomerService.WaterMeterNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -72,3 +79,198 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+
+
+@*-------------CUSTOMER----------------*@
+<h1>Customer</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" id="MyTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.Nif)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.PostalCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Customers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nif)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostalCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@*-------------TECHNICIANS----------------*@
+<h1>Technician</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" id="Technician">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Technician.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Technician.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Technician.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Technician.Specialization)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Technician.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Technician.Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Technicians) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+                <td>
+                    <img src="@("~/images/"+item.Image)" asp-append-version="true" alt="Image" style="width:100px;height:150px;max-width:100%;height:auto;" />
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Specialization)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@*-------------WATERMETER----------------*@
+<h1>WaterMeter</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" id="Watermeter">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WaterMeter.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WaterMeter.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WaterMeter.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WaterMeter.ReferenceNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.WaterMeters)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <img src="@("~/images/"+item.Image)" asp-append-version="true" alt="Image" style="width:100px;height:150px;max-width:100%;height:auto;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReferenceNumber)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#MyTable').DataTable();
+            $('#Technician').DataTable();
+            $('#Watermeter').DataTable();
+        });
+    </script>
+}
