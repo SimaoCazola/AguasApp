@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AguasApp</title>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Inclua o jQuery (certifique-se de usar uma versão compatível com o Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Inclua o popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Inclua o Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   @* <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+*@
+
     <link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" />
                                 <!--ADDTOCART-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
@@ -53,35 +68,44 @@
     <!--====== HEADER PART START ======-->
 
     <header class="header-area">
-        <div class="navbar-area">
+        <div class="navbar-area" style="background-color: #e3f2fd;">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
                         <nav class="navbar navbar-expand-lg">
-                     @*       <a href="Home">
-                                <img src="asset/images/logo.png" alt="Logo">
-                            </a>*@
-                         
-
+                            <img src="~/images/water-logo-transparent-7.png" width="100" height="100" />
                             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                               
+
                                 @*LISTA DE TODOS OS UTILIZADORES EM GERAL*@
 
                                 <ul class="navbar-nav flex-grow-1">
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">SoAguas</a>
+                                       @* <img src="~/images/A horta do Simao232023888.png" alt="Descrição da imagem">*@
+                                        @*<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">SoAguas</a>*@
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark">
-                                            <label for="category">Categories</label>
-                                            <select id="category" name="category">
-                                                <option value="eletronica">Eletrônica</option>
-                                                <option value="vestuario">Vestuário</option>
-                                                <option value="livros">Livros</option>
-                                                <option value="alimentos">Alimentos</option>
-                                                <option value="esportes">Esportes</option>
-                                            </select>
-                                        </a>
+                                        <div class="btn-group btn btn-outline-info">
+                                            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Category menu
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" asp-action="Index" asp-controller="ProductSites">
+                                                    <button class="dropdown-item" type="button">Products</button>
+                                                </a>
+                                                
+                                                <a class="dropdown-item" asp-action="Index" asp-controller="ServiceSites">
+                                                    <button class="dropdown-item" type="button">Services</button>
+                                                </a>
+
+                                                <a class="dropdown-item" asp-action="Index" asp-controller="Home">
+                                                    <button class="dropdown-item" type="button">Home</button>
+                                                </a>
+
+                                                
+                                            </div>
+                                        </div>
+
+
                                     </li>
 
                                     <li class="nav-item">
@@ -147,11 +171,20 @@
                     </div>
                 </div> <!-- row -->
             </div> <!-- container -->
+            <br />
+            <div class="d-flex justify-content-center">
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+            <br />
         </div> <!-- navbar area -->
-
-
+      
     </header>
     <hr />
+    <br />
+    <br />
     <!--====== HEADER PART ENDS ======-->
 
 
@@ -193,9 +226,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-6 col-sm-8">
                         <div class="footer-about mt-50 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
-                            <a class="logo" href="#">
-                                <img src="asset/images/logo.png" alt="logo">
-                            </a>
+                          
                             <p class="text">Lorem ipsum dolor sit amet consetetur sadipscing elitr, sederfs diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
                             <ul class="social">
                                 <li><a href="#"><i class="lni-facebook-filled"></i></a></li>

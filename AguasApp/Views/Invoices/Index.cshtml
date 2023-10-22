@@ -5,114 +5,130 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" />
-<h1>Index</h1>
+
+<br />
+<br />
+<br />
+
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table" id="MyTable">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FullName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nif)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InvoiceNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Scalation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descriptions)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Volume)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Value)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastReadingDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DueDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reference)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Entity)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nif)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InvoiceNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Scalation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descriptions)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Volume)
-            </td>
-             <td>
-                @Html.DisplayFor(modelItem => item.Value)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastReadingDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DueDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reference)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Entity)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
 
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Invoices</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover table-responsive table-striped" id="MyTable">
+                    <thead>
+                        <tr class="table-light">
+                            <th>
+                                @Html.DisplayNameFor(model => model.FullName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Nif)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Address)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.InvoiceNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Scalation)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Descriptions)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Price)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Volume)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Value)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LastReadingDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DueDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Reference)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Entity)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="table-primary">
+                                    @Html.DisplayFor(modelItem => item.FullName)
+                                </td>
+                                <td class="table-secondary">
+                                    @Html.DisplayFor(modelItem => item.Nif)
+                                </td>
+                                <td class="table-success">
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td class="table-danger">
+                                    @Html.DisplayFor(modelItem => item.InvoiceNumber)
+                                </td>
+                                <td class="table-warning">
+                                    @Html.DisplayFor(modelItem => item.Scalation)
+                                </td>
+                                <td class="table-info">
+                                    @Html.DisplayFor(modelItem => item.Descriptions)
+                                </td>
+                                <td class="table-light">
+                                    @Html.DisplayFor(modelItem => item.Price)
+                                </td>
+                                <td class="table-info">
+                                    @Html.DisplayFor(modelItem => item.Volume)
+                                </td>
+                                <td class="table-warning">
+                                    @Html.DisplayFor(modelItem => item.Value)
+                                </td>
+                                <td class="table-danger">
+                                    @Html.DisplayFor(modelItem => item.LastReadingDate)
+                                </td>
+                                <td class="table-secondary">
+                                    @Html.DisplayFor(modelItem => item.DueDate)
+                                </td>
+                                <td class="table-primary">
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                <td class="table-success">
+                                    @Html.DisplayFor(modelItem => item.Reference)
+                                </td>
+                                <td tr class="table-info">
+                                    @Html.DisplayFor(modelItem => item.Entity)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning"><i class="far fa-edit"></i></a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info"><i class="fas fa-list"></i></a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts{
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
