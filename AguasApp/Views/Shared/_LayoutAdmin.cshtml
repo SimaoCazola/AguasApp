@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AguasApp</title>
+    <link href="~/css/style.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
@@ -28,7 +29,7 @@
 <body>
 
     <header class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark navbar">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" asp-controller="DashBoards" asp-action="Index">Admin</a>
             <!-- Sidebar Toggle-->
@@ -55,7 +56,7 @@
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <nav class="sb-sidenav accordion sidenav" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
 
@@ -145,9 +146,6 @@
         </div>
     </header>
 
-
-
-
     <!--====== BODY PART START ======-->
 
     <div class="container">
@@ -157,8 +155,6 @@
     </div>
 
     <!--====== BODY PART START ======-->
-    
-
 
     <footer>
 

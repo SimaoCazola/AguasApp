@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AguasApp</title>
 
+
+    <link href="~/css/style.css" rel="stylesheet" />
+
+
     <script src="~/layout/assets/demo/chart-area-demo.js"></script>
     <script src="~/layout/assets/demo/chart-bar-demo.js"></script>
     <script src="~/layout/assets/demo/chart-pie-demo.js"></script>
@@ -23,7 +27,7 @@
 <body>
 
     <header class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark navbar">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" asp-controller="DashEmployees" asp-action="Index">Employee</a>
             <!-- Sidebar Toggle-->
@@ -50,7 +54,7 @@
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <nav class="sidenav" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
 

@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">*@
+    <link href="~/css/style.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <header>
+        @*NAV-BarraHorizontal do Topo*@
+        <div class="navbar">
+            <a href="#home">Início</a>
+            <a href="#news">Notícias</a>
+            <a href="#contact">Contato</a>
+        </div>
+ 
+        @*NAV-Barra Vertical esquerdo*@
+        <div class="sidenav">
+            <br />
+             <br />
+            <br />
+            <br />
+            <br />
+   @*         <a asp-area="" asp-controller="Customers" asp-action="Index">Página 1</a>*@
+            <a href="#">Página 2</a>
+            <a href="#">Página 3</a>
+        </div>
+    </header>
+
+
+    <div class="main">
+        @RenderBody()
+    </div>
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

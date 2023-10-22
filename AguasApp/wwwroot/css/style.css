@@ -1,3 +1,62 @@
-*{
-    background-color:brown;
+/**{
+    background-color:cornflowerblue;
+}*/
+
+/*-------SIDE NAVE---------------------------------------*/
+/* Estilo da barra de navegação lateral */
+.sidenav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0; /* Espaço do topo da página */
+    left: 0;
+    background-color: #e8f1fc;
+    padding: 20px;
 }
+
+    /* Estilo dos links da barra de navegação lateral */
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 20px;
+        color: black;
+        display: block;
+    }
+
+        /* Efeito hover nos links */
+        .sidenav a:hover {
+            color: darkblue;
+        }
+/*-------SIDE NAVE---------------------------------------*/
+
+/*-------TOPO NAVE ---------------------------------------*/
+/* Estilo da barra de navegação no topo */
+.navbar {
+    background-color: #e8f1fc;
+    overflow: hidden;
+    margin-top: 0px; /* Espaço entre a barra de navegação lateral e a de topo */
+    padding: 30px; /* Aumentar e diminuir a barra em todos os lados o primeiro
+                           numero aumenta de cima para baixo e o segundo aumenta aos lados */
+}
+
+    /* Estilo dos links da barra de navegação no topo */
+    .navbar a {
+        float: left;
+        display: block;
+        color: black;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+        /* Efeito hover nos links da barra de navegação no topo */
+        .navbar a:hover {
+            
+        }
+/*-------TOPO NAVE CLOSE---------------------------------------*/
+
+
+
+
+
+
