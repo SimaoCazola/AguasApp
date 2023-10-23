@@ -28,7 +28,9 @@ namespace AguasApp.Controllers
             _productRepository = productRepository;
             _userHelper = userHelper;
         }
+        
 
+        //ADD TO CART METHOD POST METHOD
         public async Task<IActionResult> AddItemToCart(int? id)
         {
             if (id == null)
@@ -38,7 +40,7 @@ namespace AguasApp.Controllers
 
             var item = await _productRepository.GetByIdAsync(id.Value);
 
-            string user = _context.Users.FirstOrDefault()?.Id;
+            //string user = _context.Users.FirstOrDefault()?.Id;
 
             await _orderRepository.AddItemToCartAsync(item, this.User.Identity.Name);
             return RedirectToAction("Create");

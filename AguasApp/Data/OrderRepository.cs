@@ -21,6 +21,7 @@ namespace AguasApp.Data
             
         }
 
+        // ADD ITEM TO CART METHOD
         public async Task AddItemToCartAsync(Product product, string userName) 
         {
             var user = await _userHelper.GetUserByEmailAsync(userName);
@@ -47,10 +48,10 @@ namespace AguasApp.Data
             {
                 orderDetailTemp = new OrderDetailTemp
                 {
-                    Price = product.Price,
+                    Price = productWeb.Price,
                     Quantity = 1,
                     User = user,
-                    Product=productWeb
+                    Product = productWeb
                 };
 
                 /*Adicionar o objecto novo*/
@@ -67,9 +68,7 @@ namespace AguasApp.Data
 
             await _context.SaveChangesAsync();
         }
-
-
-
+        // ADD ITEM TO CART METHOD CLOSE
 
 
 
