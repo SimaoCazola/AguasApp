@@ -5,10 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<br />
-<br />
-<br />
-<h1>Products Area</h1>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <!-- Inclua o jQuery (certifique-se de usar uma versão compatível com o Bootstrap) -->
@@ -61,13 +58,14 @@
 <script src="~/asset/js/wow.min.js"></script>
 
 <main @*class="d-flex justify-content-center"*@>
+    <h1>Products Area</h1>
+       <br />
+    <br />
     <div>
         <a asp-action="IndexSite" asp-controller="Services" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Check Our Services</a>
 
-        <a href="#" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Contact Us Now</a>
+        <a asp-action="Contact" asp-controller="ContactSites" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Contact Us Now</a>
     </div>
-    
-    <br />
     <br />
     <br />
     <!-- Begin Book section -->
@@ -114,10 +112,19 @@
                                         </span>
                                     </h6>
                                 </div>
+                                @if (this.User.Identity.IsAuthenticated)
+                                {
+                                    <div>
+                                        <a asp-controller="Orders" asp-action="AddItemToCart" asp-route-id="@item.Id" class="btn btn-outline-warning"><i class="fa fa-shopping-cart"></i></a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div>
+                                        <a asp-controller="Account" asp-action="Login" class="btn btn-outline-warning">Login to Add to Cart</a>
+                                    </div>
+                                }
 
-                                <div>
-                                    <a asp-controller="Orders" asp-action="AddItemToCart" asp-route-id="@item.Id" class="btn btn-outline-warning"><i class="fa fa-shopping-cart"></i></a>
-                                </div>
 
                             </a>
                         </div>
@@ -134,3 +141,14 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+@*Se o user nao estiver logado Redireciona para o login*@
+<!---------------------------------------------------------------------------->
+<script>
+    // Verifique a condição que determina se o redirecionamento é necessário
+    if (!this.User.Identity.IsAuthenticated) {
+        // Redirecione para o controlador e a ação desejados
+        window.location.href = '@Url.Action("Login", "Account")';
+    }
+</script>
+<!----------------------------------------------------------------------------->

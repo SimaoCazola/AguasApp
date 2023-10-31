@@ -3,8 +3,7 @@
     ViewData["Title"] = "IndexSite";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<br />
-<h1>Services Area</h1>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <!-- Inclua o jQuery (certifique-se de usar uma versão compatível com o Bootstrap) -->
@@ -55,7 +54,16 @@
 <script src="~/asset/js/wow.min.js"></script>
 
 <main @*class="d-flex justify-content-center"*@>
+    <h1>Services Area</h1>
+    <br />
+    <br />
+    <div>
+        <a asp-action="Index" asp-controller="ProductSites" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Check Our Products</a>
 
+        <a asp-action="Contact" asp-controller="ContactSites" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Contact Us Now</a>
+    </div>
+    <br />
+    <br />
     <!-- Begin Book section -->
     <section class="shop_section layout_padding">
         <div class="container">
@@ -94,6 +102,11 @@
             </div>
         </div>
     </section>
+    <br />
+    <br />
+    <div>
+        <a class="btn btn-info btn-block" asp-controller="BuyServices" asp-action="Create">Buy Service</a>
 
+    </div>
     <!-- End Book section -->
 </main>

@@ -25,6 +25,15 @@ namespace AguasApp.Controllers
             _userHelper = userHelper;
         }
 
+        public async Task<IActionResult> IndexAdmin()
+        {
+            var buyServices = await _context.BuyServices
+       .Include(b => b.Service)
+       .ToListAsync();
+
+            return View(buyServices);
+        }
+
         /*________________INDEX______________________________*/
         // INDEX COM USER LOGADO ASSOCIADO
         public async Task<IActionResult> Index()
