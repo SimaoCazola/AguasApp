@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AguasApp.Data.Entities;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace AguasApp.Controllers
 {
@@ -13,8 +15,8 @@ namespace AguasApp.Controllers
         {
             return View();
         }
-        
 
+       
 
     }
 }

@@ -30,6 +30,36 @@ namespace AguasApp.Controllers
             return View(service);
         }
 
+        // GET: Mostrar todos Services
+        public IActionResult IndexSite() 
+        {
+            var service = _serviceRepository.GetAll().OrderBy(p => p.Name);
+
+            return View(service);
+        }
+
+
+        // GET: DetailsSite
+        public async Task<IActionResult> DetailsSite(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var service = await _serviceRepository.GetByIdAsync(id.Value);
+
+            if (service == null)
+            {
+                return NotFound();
+            }
+
+            return View(service);
+        }
+
+
+
+
         // GET: Mostrar o DETALHE DE CADA services/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -48,6 +78,8 @@ namespace AguasApp.Controllers
             return View(service);
         }
 
+
+        
         // GET: Mostar a view do CREATE services/Create
         public IActionResult Create()
         {

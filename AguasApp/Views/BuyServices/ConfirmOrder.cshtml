@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "ConfirmOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<h3 class="text-center">Success!</h3>
+<br />
+<h3 class="text-center">Your Order Was Created Successfully 😊😊!</h3>
+<br />
+<br />
+<div class="alert alert-success text-center" role="alert" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+    <h4 class="alert-heading">Well done!</h4>
+    <p>
+        Please to Finish your Order Kindly do Payment!
+    </p>
+    <a class="btn btn-danger btn-block" asp-action="Index" asp-controller="Payments">Pay Now</a>
+</div>
+
+
+
+<h3 class="text-center">Order Details</h3>
+

@@ -35,7 +35,9 @@ namespace AguasApp.Data
 
         public DbSet<OrderDetailTemp> OrderDetailsTemp { get; set; } // Tabela dos OrderDetailTemp
 
-        public DbSet<Cart> Carts { get; set; } 
+        public DbSet<Cart> Carts { get; set; }
+
+        public DbSet<BuyService> BuyServices { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

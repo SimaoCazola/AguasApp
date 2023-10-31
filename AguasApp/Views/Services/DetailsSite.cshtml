@@ -1,0 +1,39 @@
+﻿@model AguasApp.Data.Entities.Service
+@{
+    ViewData["Title"] = "DetailsSite";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<h1>Details</h1>
+<br />
+<div>
+    <h4>Service</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageFile)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageFile)
+            <img src="@("~/images/"+Model.Image)" asp-append-version="true" width="150" height="150" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a class="btn btn-info btn-block" asp-controller="BuyServices" asp-action="Create">Buy Service</a>
+ 
+</div>
