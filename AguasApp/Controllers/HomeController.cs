@@ -1,5 +1,8 @@
-﻿using AguasApp.Models;
+﻿using AguasApp.Data;
+using AguasApp.Data.Entities;
+using AguasApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,10 +14,12 @@ namespace AguasApp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly DataContext _context;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, DataContext context)
         {
+            _context = context;
             _logger = logger;
         }
 
@@ -33,5 +38,14 @@ namespace AguasApp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult IndexComments() 
+        {
+            var comments = _context.Comments.ToList();
+            return View("Views/Home/Index.cshtml", comments);
+        }
+
+       
     }
 }
+

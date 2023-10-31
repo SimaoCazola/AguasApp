@@ -4,6 +4,10 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<br />
+<br />
+<br />
 <h1>Products Area</h1>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
@@ -58,7 +62,7 @@
 
 <main @*class="d-flex justify-content-center"*@>
     <div>
-        <a href="#" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Check Our Services</a>
+        <a asp-action="IndexSite" asp-controller="Services" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Check Our Services</a>
 
         <a href="#" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Contact Us Now</a>
     </div>

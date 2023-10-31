@@ -11,6 +11,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace AguasApp.Controllers
 {
@@ -19,6 +21,7 @@ namespace AguasApp.Controllers
     {
         private readonly IUserHelper _userHelper;
         private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         public AccountController(IUserHelper userHelper, IConfiguration configuration)
         {
@@ -87,6 +90,7 @@ namespace AguasApp.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 var user = await _userHelper.GetUserByEmailAsync(model.Username);
 
                 //ver se o user existe
@@ -136,7 +140,6 @@ namespace AguasApp.Controllers
             return View(model);
         }
         /*------CLOSE Register POST--------------------------------------------------------*/
-
 
 
         /*------OPEN ChangeUser GET--------------------------------------------------*/

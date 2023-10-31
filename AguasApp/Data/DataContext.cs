@@ -39,6 +39,8 @@ namespace AguasApp.Data
 
         public DbSet<BuyService> BuyServices { get; set; }
 
+        public DbSet<Comment> Comments { get; set; }
+
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
             

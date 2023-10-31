@@ -1,0 +1,33 @@
+﻿@using AguasApp.Data.Entities
+@model List<Comment>
+
+<h1>Comentários</h1>
+
+@if (Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Usuário</th>
+                <th>Data de Postagem</th>
+                <th>Comentário</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var comment in Model)
+            {
+                <tr>
+                    <td>@comment.UserName</td>
+                    <td>@comment.DatePosted</td>
+                    <td>@comment.Text</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nenhum comentário ainda.</p>
+}
+
+<a asp-action="Create" class="btn btn-primary">Adicionar Comentário</a>
