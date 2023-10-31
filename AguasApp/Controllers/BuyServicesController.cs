@@ -70,7 +70,7 @@ namespace AguasApp.Controllers
           
             return View();
         }
-        /*_____________CREATE POST___________________________*/
+        /*_____________CREATE POST COM USER ASSOCIADO LOGADO___________________________*/
 
         // CREATE COM USER LOGADO ASSOCIADO
         // POST: BuyServices/Create
