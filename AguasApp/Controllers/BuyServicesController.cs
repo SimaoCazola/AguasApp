@@ -25,6 +25,7 @@ namespace AguasApp.Controllers
             _userHelper = userHelper;
         }
 
+
         public async Task<IActionResult> IndexAdmin()
         {
             var buyServices = await _context.BuyServices

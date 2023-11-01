@@ -1,61 +1,88 @@
-﻿
+﻿@model AguasApp.Models.EmailViewModel
+
 @{
-    ViewData["Title"] = "Contact";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "SendEmailContact";
 }
 
+<!-- Inclua o arquivo CSS externo keyframes -->
+<link rel="stylesheet" type="text/css" href="~/path/to/styles.css">
+<style>
+    /* Aplica a animação à barra de progresso */
+    .progress-bar {
+        width: 0%;
+    }
+
+    form {
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        height: 100%;
+        margin: 0;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
 <br />
 <br />
-<h1>Contact</h1>
-
-<!-- Wrapper container -->
-<div class="container py-4">
-
-    <!-- Bootstrap 5 starter form -->
-    <form id="contactForm" data-sb-form-api-token="API_TOKEN">
-
-        <!-- Name input -->
-        <div class="mb-3">
-            <label class="form-label" for="name">Name</label>
-            <input class="form-control" id="name" type="text" placeholder="Name" data-sb-validations="required" />
-            <div class="invalid-feedback" data-sb-feedback="name:required">Name is required.</div>
-        </div>
-
-        <!-- Email address input -->
-        <div class="mb-3">
-            <label class="form-label" for="emailAddress">Email Address</label>
-            <input class="form-control" id="emailAddress" type="email" placeholder="Email Address" data-sb-validations="required, email" />
-            <div class="invalid-feedback" data-sb-feedback="emailAddress:required">Email Address is required.</div>
-            <div class="invalid-feedback" data-sb-feedback="emailAddress:email">Email Address Email is not valid.</div>
-        </div>
-
-        <!-- Message input -->
-        <div class="mb-3">
-            <label class="form-label" for="message">Message</label>
-            <textarea class="form-control" id="message" type="text" placeholder="Message" style="height: 10rem;" data-sb-validations="required"></textarea>
-            <div class="invalid-feedback" data-sb-feedback="message:required">Message is required.</div>
-        </div>
-
-
-        <!-- Form submissions success message -->
-        <div class="d-none" id="submitSuccessMessage">
-            <div class="text-center mb-3">Form submission successful! Please Kindly Check Your Email</div>
-        </div>
-     
-
-        <!-- Form submissions error message -->
-        <div class="d-none" id="submitErrorMessage">
-            <div class="text-center text-danger mb-3">Error sending message!</div>
-        </div>
-
-        <!-- Form submit button -->
-        <div class="d-grid">
-            <button class="btn btn-primary btn-lg disabled" id="submitButton" type="submit">Submit</button>
-        </div>
-
-    </form>
-
+<br />
+<br />
+<h1>Information Area</h1>
+<div class="alert alert-info">
+    <strong>Info!</strong> Please input your information.
 </div>
+<br />
+<form method="post" asp-action="SendEmailContact" asp-controller="ContactSites" autocomplete="off" onsubmit="return validateForm()">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-<!-- SB Forms JS -->
-<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Message" class="control-label"></label>
+        <textarea asp-for="Message" class="form-control"></textarea>
+        <span asp-validation-for="Message" class="text-danger"></span>
+    </div>
+
+    <input id="btn-start" type="submit" class="btn btn-info" value="Send" />
+    <br />
+    <br />
+    <div class="progress" style="height:30px">
+        <div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="0"
+             aria-valuemin="0" aria-valuemax="100">
+            0%
+        </div>
+    </div>
+</form>
+
+<script>
+    function validateForm() {
+        console.log("validateForm chamado"); // Adicione esta linha para verificar se a função é acionada
+        var name = $("#Name").val();
+        var email = $("#Email").val();
+        var message = $("#Message").val();
+
+        if (name && email && message) {
+            // Se todos os campos estiverem preenchidos, anima a barra de progresso
+            $("#progressBar").css("width", "100%");
+            $("#progressBar").text("100%");
+            return true; // Permite o envio do formulário
+        } else {
+            // Caso contrário, exiba uma mensagem de erro personalizada com o customAlert
+            customAlert("Please fill in all the fields.");
+            return false; // Impede o envio do formulário
+        }
+    }
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

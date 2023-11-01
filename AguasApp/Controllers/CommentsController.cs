@@ -30,7 +30,7 @@ namespace AguasApp.Controllers
         [HttpPost]
         public IActionResult Create(Comment comment)
         {
-            comment.DatePosted = DateTime.Now;
+            //comment.Message = DateTime.Now;
             _context.Comments.Add(comment);
             _context.SaveChanges();
             return RedirectToAction("Index");
