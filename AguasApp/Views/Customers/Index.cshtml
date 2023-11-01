@@ -9,12 +9,13 @@
 <br />
 <br />
 <h1>Customer</h1>
-
+<br />
+<br />
 <p>
-    <a asp-action="Create" class="btn btn-primary"><i class="fa fa-save">Create New</a>
+    <a asp-action="Create" class="btn btn-outline-primary">Create New</a>
 </p>
 
-<table class="table">
+<table class="table" id="MyTable">
     <thead>
         <tr>
             <th>
@@ -77,3 +78,12 @@
 </table>
 
 
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#MyTable').DataTable();
+        });
+    </script>
+}

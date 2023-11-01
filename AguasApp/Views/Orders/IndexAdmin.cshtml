@@ -18,7 +18,7 @@
 </p>
 <br />
 <br />
-<table class="table">
+<table class="table" id="MyTable">
     <thead>
         <tr>
             @if (this.User.IsInRole("Admin"))
@@ -81,3 +81,12 @@
     </tbody>
 </table>
 
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#MyTable').DataTable();
+        });
+    </script>
+}
