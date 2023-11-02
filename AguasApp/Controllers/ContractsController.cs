@@ -27,7 +27,7 @@ namespace AguasApp.Controllers
             
         }
 
-        // GET: Contracts/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,8 +36,8 @@ namespace AguasApp.Controllers
             }
 
             var contract = await _context.Contracts
-                .Include(c => c.CustomerName)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (contract == null)
             {
                 return NotFound();
@@ -45,6 +45,9 @@ namespace AguasApp.Controllers
 
             return View(contract);
         }
+
+
+
 
         // GET: Contracts/Create
         public IActionResult Create()
@@ -142,6 +145,7 @@ namespace AguasApp.Controllers
         }
 
         // GET: Contracts/Delete/5
+        
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -150,8 +154,8 @@ namespace AguasApp.Controllers
             }
 
             var contract = await _context.Contracts
-                .Include(c => c.CustomerName)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (contract == null)
             {
                 return NotFound();
@@ -159,6 +163,8 @@ namespace AguasApp.Controllers
 
             return View(contract);
         }
+
+
 
         // POST: Contracts/Delete/5
         [HttpPost, ActionName("Delete")]
