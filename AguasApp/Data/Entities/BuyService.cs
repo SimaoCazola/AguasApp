@@ -1,15 +1,26 @@
-﻿namespace AguasApp.Data.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AguasApp.Data.Entities
 {
     public class BuyService:IEntity
     {
-       public int Id { get; set; } 
+       public int Id { get; set; }
+     
        public virtual Service Service { get; set; }
-       public int ServiceId { get; set; }  
-       public string Description { get; set; }
-       public  string User { get; set; }
-       public string Mobile { get; set; }
-       public string Email { get; set; }
-       public string Adress { get; set; } 
+        [Required]
+        [Display(Name = "Service List")]
+        public int ServiceId { get; set; }
+        [Required]
+        public string Description { get; set; }
+     
+        public  string User { get; set; }
+
+        [Required]
+        public string Mobile { get; set; }
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        public string Adress { get; set; } 
     }
 
 }
