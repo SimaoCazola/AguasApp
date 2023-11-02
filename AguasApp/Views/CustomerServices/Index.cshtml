@@ -55,7 +55,8 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ServiceName.Id)
+                @Html.DisplayFor(modelItem => item.ServiceName.Name)
+          
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.StartDate)

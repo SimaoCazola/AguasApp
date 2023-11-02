@@ -23,6 +23,8 @@ namespace AguasApp.Controllers
         // GET: CustomerServices
         public async Task<IActionResult> Index()
         {
+            //var dataContext = _context.CustomerServices.Include(c => c.ServiceName);
+            //return View(await dataContext.ToListAsync());
             var dataContext = _context.CustomerServices.Include(c => c.ServiceName);
             return View(await dataContext.ToListAsync());
         }
