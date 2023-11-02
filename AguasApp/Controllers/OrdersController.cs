@@ -148,7 +148,7 @@ namespace AguasApp.Controllers
             var response = await _orderRepository.ConfirmOrderAsync(this.User.Identity.Name);
             if (response)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("ConfirmOrder", "BuyServices");
             }
             return RedirectToAction("Create");
         }

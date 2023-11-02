@@ -31,7 +31,7 @@ namespace AguasApp.Data.Entities
 
 
         [Required]
-        public int Address { get; set; }
+        public string Address { get; set; }
 
         [Required]
         [Display(Name= "Postal Code*")]

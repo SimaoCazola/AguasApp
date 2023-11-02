@@ -41,7 +41,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Value)
             </th>
-            <th></th>
+            <th>
+                Status
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -69,7 +71,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Value)
                 </td>
-
+                <td>
+                    <a class="btn btn-outline-warning">On Going</a>
+                </td>
             </tr>
         }
     </tbody>
