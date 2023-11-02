@@ -4,7 +4,9 @@
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
+<br />
+<br />
+<br />
 <h1>Details</h1>
 
 <div>
@@ -79,7 +81,8 @@
         </dd>
     </dl>
 </div>
+<br />
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> 
+    <a asp-action="Index" class="btn btn-outline-warning">Back to List</a>
 </div>

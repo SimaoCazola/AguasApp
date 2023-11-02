@@ -4,7 +4,9 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
+<br />
+<br />
+<br />
 <h1>Edit</h1>
 
 <h4>Contract</h4>
@@ -49,14 +51,15 @@
                     <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
                 </label>
             </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-
+<br />
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-outline-warning">Back to List</a>
 </div>
 

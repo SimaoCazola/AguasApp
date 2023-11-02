@@ -6,12 +6,15 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" />
+<br />
+<br />
+<br />
 <h1>Create</h1>
 
 <h4>CustomerService</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -74,9 +77,9 @@
         </form>
     </div>
 </div>
-
+<br />
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-outline-warning">Back to List</a>
 </div>
 
 
@@ -84,9 +87,9 @@
 @*-------------CUSTOMER----------------*@
 <h1>Customer</h1>
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
 <table class="table" id="MyTable">
     <thead>
         <tr>
@@ -140,9 +143,9 @@
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
                 </td>
             </tr>
         }
@@ -153,9 +156,9 @@
 @*-------------TECHNICIANS----------------*@
 <h1>Technician</h1>
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
 <table class="table" id="Technician">
     <thead>
         <tr>
@@ -202,9 +205,9 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+               @* <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
             </td>
         </tr>
 }
@@ -214,9 +217,9 @@
 @*-------------WATERMETER----------------*@
 <h1>WaterMeter</h1>
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
 <table class="table" id="Watermeter">
     <thead>
         <tr>
@@ -252,9 +255,9 @@
                     @Html.DisplayFor(modelItem => item.ReferenceNumber)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                   @* <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
                 </td>
             </tr>
         }
