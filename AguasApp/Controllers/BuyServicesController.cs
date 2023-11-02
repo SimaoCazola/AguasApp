@@ -29,8 +29,8 @@ namespace AguasApp.Controllers
         public async Task<IActionResult> IndexAdmin()
         {
             var buyServices = await _context.BuyServices
-       .Include(b => b.Service)
-       .ToListAsync();
+                .Include(b => b.Service)
+                .ToListAsync();
 
             return View(buyServices);
         }
@@ -127,6 +127,39 @@ namespace AguasApp.Controllers
         // POST: BuyServices/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("Id,ServiceId,Description,Mobile,Email,Adress")] BuyService buyService)
+        //{
+        //    if (id != buyService.Id)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(buyService);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!BuyServiceExists(buyService.Id))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["ServiceId"] = new SelectList(_context.Service, "Id", "Name", buyService.ServiceId);
+        //    return View(buyService);
+        //}
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,ServiceId,Description,Mobile,Email,Adress")] BuyService buyService)
@@ -135,6 +168,12 @@ namespace AguasApp.Controllers
             {
                 return NotFound();
             }
+
+            // Obtenha o nome de usuário do usuário logado
+            var userName = User.Identity.Name;
+
+            // Atualize o campo User do objeto buyService
+            buyService.User = userName;
 
             if (ModelState.IsValid)
             {
@@ -159,6 +198,8 @@ namespace AguasApp.Controllers
             ViewData["ServiceId"] = new SelectList(_context.Service, "Id", "Name", buyService.ServiceId);
             return View(buyService);
         }
+
+
 
         // GET: BuyServices/Delete/5
         public async Task<IActionResult> Delete(int? id)
