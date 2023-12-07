@@ -55,12 +55,14 @@
 
 
 @*Se o user nao estiver logado Redireciona para o login*@
+
 <!----------------------------------------------------------------------------> 
-<script>
-    // Verifique a condição que determina se o redirecionamento é necessário
-    if (!this.User.Identity.IsAuthenticated) {
-        // Redirecione para o controlador e a ação desejados
+@if (!this.User.Identity.IsAuthenticated)
+{
+    <script>
+      @*  // Redirecione para o controlador e a ação desejados*@
         window.location.href = '@Url.Action("Login", "Account")';
-    }
-</script>
+    </script>
+}
+
 <!-----------------------------------------------------------------------------> 
